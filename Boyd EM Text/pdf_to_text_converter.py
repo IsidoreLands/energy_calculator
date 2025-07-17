@@ -6,18 +6,38 @@
 #
 # Prerequisites:
 # Before running, ensure you have the necessary libraries installed via pip:
-# pip install transformers torch sentencepiece Pillow "unstructured[pdf]" pypdf
+# pip install transformers torch sentencepiece Pillow "unstructured[pdf]" pypdf pypdfium2 python-dotenv
 #
 import torch
+import pypdfium2 as pdfium
 from pathlib import Path
+from PIL import Image
 from transformers import NougatProcessor, VisionEncoderDecoderModel
+from dotenv import load_dotenv
+import os
+
+def load_environment():
+    """
+    Locates and loads the .env file from the sibling aiops_toolkit directory.
+    This makes Hugging Face tokens available to the script.
+    """
+    # Robustly find the script's directory and navigate to the .env file
+    script_dir = Path(__file__).parent.resolve()
+    env_path = script_dir.parent.parent / 'aiops_toolkit' / '.env'
+    
+    if env_path.exists():
+        print(f"Loading environment variables from: {env_path}")
+        load_dotenv(dotenv_path=env_path, override=True)
+        # Optional: Verify token loaded
+        if os.getenv("HF_TOKEN"):
+            print("Hugging Face token found and loaded.")
+    else:
+        print(f"Warning: .env file not found at {env_path}. Proceeding without it.")
 
 def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name: str = "facebook/nougat-small"):
     """
     Converts a PDF document to structured Markdown using the Nougat model.
-
-    This function loads the specified Nougat model from Hugging Face, processes the input PDF,
-    and saves the resulting Markdown text to the specified output file.
+    It processes the PDF page by page to handle documents and resolve image type errors.
 
     Args:
         pdf_path_str (str): The path to the input PDF file.
@@ -25,7 +45,6 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
         model_name (str): The Hugging Face name of the Nougat model to use.
     """
     print("Initializing model and processor...")
-    # Check for a CUDA-compatible GPU and set the device accordingly for faster processing.
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Using device: {device}")
 
@@ -35,7 +54,6 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
         print("Model and processor loaded successfully.")
     except Exception as e:
         print(f"Error loading model: {e}")
-        print("Please ensure you have an internet connection and the required libraries are installed.")
         return
 
     input_path = Path(pdf_path_str)
@@ -46,25 +64,30 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
         return
 
     try:
-        print(f"Processing PDF: '{input_path.name}'...")
-        # The Nougat processor converts the PDF into pixel values for the model.
-        pixel_values = processor(input_path, return_tensors="pt").pixel_values
+        # Convert PDF pages to a list of PIL Images
+        print("Rendering PDF pages to images...")
+        images = pdfium.render_pdf_to_pil(input_path)
+        
+        full_markdown = ""
+        # Process each page (image) individually
+        for i, image in enumerate(images):
+            print(f"Processing page {i + 1}/{len(images)}...")
+            pixel_values = processor(image, return_tensors="pt").pixel_values
+            
+            outputs = model.generate(
+                pixel_values.to(device),
+                min_length=1,
+                max_length=model.config.max_length,
+                bad_words_ids=[[processor.tokenizer.unk_token_id]],
+            )
+            
+            sequence = processor.batch_decode(outputs, skip_special_tokens=True)[0]
+            markdown_page = processor.post_process_generation(sequence, fix_markdown=True)
+            full_markdown += markdown_page + "\n\n"
 
-        # The model generates token IDs from the pixel values.
-        outputs = model.generate(
-            pixel_values.to(device),
-            min_length=1,
-            max_length=32768,  # Set a high max length to accommodate dense documents.
-            bad_words_ids=[[processor.tokenizer.unk_token_id]],
-        )
-
-        # The processor decodes the token IDs and performs post-processing to clean up the Markdown.
-        sequence = processor.batch_decode(outputs, skip_special_tokens=True)[0]
-        markdown_text = processor.post_process_generation(sequence, fix_markdown=True)
-
-        print(f"Writing output to '{output_path.name}'...")
+        print(f"Writing complete output to '{output_path.name}'...")
         with output_path.open("w", encoding="utf-8") as f:
-            f.write(markdown_text)
+            f.write(full_markdown)
 
         print("Conversion complete.")
 
@@ -72,9 +95,12 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
         print(f"An error occurred during PDF processing: {e}")
 
 if __name__ == "__main__":
-    # Define the file paths relative to the script's location in the 'Boyd EM Text' directory.
+    # Load environment variables first
+    load_environment()
+
+    # Define file paths relative to the script's location
     PDF_FILE = "EM Theory.pdf"
     OUTPUT_FILE = "EM_MAR_1966_DECLASSIFIED.txt"
     
-    # Run the conversion process.
+    # Run the conversion process
     convert_pdf_to_markdown(PDF_FILE, OUTPUT_FILE)
