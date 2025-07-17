@@ -18,13 +18,11 @@
         <img id="boyd-avatar-header" src="johnboydpixel.png" alt="John Boyd" onclick="toggleChatPanel();">
     </header>
     <main id="main-content">
-        <h1>Energy Maneuverability</h1>
-        <h2>Summary of Energy-Maneuverability Theory</h2>
-        <p>Energy-Maneuverability (EM) theory, developed by Colonel John Boyd and Thomas Christie in the 1960s, quantifies aircraft performance by relating energy states (potential + kinetic) to maneuverability. It uses specific excess power \( P_s = V \frac{T - D}{W} \) to evaluate energy rates, enabling comparisons of tactical advantages in air combat. EM diagrams help pilots optimize climbs, turns, and engagements, balancing speed, altitude, thrust, drag, and weight for superior operational efficiency.</p>
+    	<p>Energy-Maneuverability (EM) theory, developed by Colonel John Boyd and Thomas Christie in the 1960s, quantifies aircraft performance by relating energy states (potential + kinetic) to maneuverability. It uses specific excess power \( P_s = V \frac{T - D}{W} \) to evaluate energy rates, enabling comparisons of tactical advantages in air combat. EM diagrams help pilots optimize climbs, turns, and engagements, balancing speed, altitude, thrust, drag, and weight for superior operational efficiency.</p>
         
         <section id="data-entry">
             <h2>Data Entry</h2>
-            <input type="text" id="var-name" placeholder="Variable Name (e.g., P_s)">
+            <input type="text" id="var-name" placeholder="Variable Name (e.g., P_s or specific excess power)">
             <input type="text" id="var-amount" placeholder="Amount">
             <input type="text" id="var-unit" placeholder="Unit (e.g., ft/sec)">
             <button id="add-var">Add Variable</button>
@@ -34,9 +32,10 @@
         
         <section id="matrix">
             <h2>Matrix</h2>
+            <button id="refresh-matrix">Refresh Matrix</button>
             <table id="matrix-table" border="1" style="width:100%; border-color:#00FF00;">
                 <thead>
-                    <tr><th>Name</th><th>Amount</th><th>Unit</th></tr>
+                    <tr><th>Name</th><th>Amount</th><th>Unit</th><th>Actions</th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
