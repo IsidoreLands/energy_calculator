@@ -7,6 +7,7 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
+    min-height: 100vh;
 }
 header {
     position: fixed;
@@ -36,8 +37,8 @@ main {
     padding-top: 80px; /* Match header height */
     width: 75%;
     max-width: 900px;
-    margin: 0 auto;
     padding: 20px;
+    flex-grow: 1;
 }
 aside#right-panel {
     position: fixed;
@@ -49,6 +50,7 @@ aside#right-panel {
     padding: 20px;
     overflow-y: auto;
     border-left: 1px solid #00FF00; /* HUD green border */
+    box-sizing: border-box;
 }
 #boyd-avatar {
     width: 100px;
@@ -82,14 +84,19 @@ p {
     main {
         width: 100%;
         padding-top: 80px;
+        padding-bottom: 200px; /* Space for bottom panel on mobile */
     }
     aside#right-panel {
-        position: relative;
+        position: fixed;
+        bottom: 0;
         top: auto;
         width: 100%;
-        height: auto;
+        height: 200px; /* Fixed height for mobile bottom panel */
         border-left: none;
         border-top: 1px solid #00FF00;
+    }
+    #chat-display {
+        height: 150px; /* Adjust for mobile */
     }
     #header {
         min-height: 60px;
