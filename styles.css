@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
+    overflow-y: auto; /* Enable scroll on body if content overflows */
 }
 header {
     position: fixed;
@@ -46,6 +47,7 @@ main {
     padding: 20px;
     flex-grow: 1;
     transition: width 0.3s ease; /* Smooth width change on toggle */
+    overflow-y: auto; /* Enable scroll on main if content is long */
 }
 aside#right-panel {
     position: fixed;
