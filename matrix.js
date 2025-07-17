@@ -1,20 +1,27 @@
 // matrix.js - Handles data entry inputs and populates matrix table
 
 // Preload EM variables from memo appendix (as array for now; later from JSON)
+// Uppercase for consistency
 const EM_VARIABLES = [
-    'r', 'V', 'g', 'N_r', 'ω', 'q', 'ρ', 'E', 'W', 'h', 'm', 'E_s',
-    'P_s', 'T', 'D', 'Ṅ', 'γ', 'ḣ', 'E-ME', 'P_s*', 'ẇ_f', 'w_f',
-    'R', 'V_ts', 'ẇ_c', 'W_f', 'x', 'C_D', 'C_{D0}', 'k', 'C_L', 'S',
-    'C_{L_max}', 'n_L'
+    'R', 'V', 'G', 'N_R', 'Ω', 'Q', 'Ρ', 'E', 'W', 'H', 'M', 'E_S',
+    'P_S', 'T', 'D', 'Ṅ', 'Γ', 'Ḣ', 'E-ME', 'P_S*', 'Ẇ_F', 'W_F',
+    'R', 'V_TS', 'Ẇ_C', 'W_F', 'X', 'C_D', 'C_{D0}', 'K', 'C_L', 'S',
+    'C_{L_MAX}', 'N_L'
 ];
 
-// Mapping for longforms and case-insensitivity (extend as needed)
+// Expanded mapping for longforms and case-insensitivity (keys lowercase)
 const VAR_MAPPING = {
     'v': 'V',
     'velocity': 'V',
-    'p_s': 'P_s',
-    'specific excess power': 'P_s',
-    // Add more mappings for other vars, e.g., 'thrust': 'T'
+    'p_s': 'P_S',
+    'specific excess power': 'P_S',
+    't': 'T',
+    'thrust': 'T',
+    'd': 'D',
+    'drag': 'D',
+    'w': 'W',
+    'weight': 'W',
+    // Add more as needed, e.g., 'altitude': 'H'
 };
 
 // Event listener setup on DOM load
@@ -27,17 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
     const aircraftSearch = document.getElementById('aircraft-search');
 
-    // Function to normalize variable name
+    // Function to normalize variable name to uppercase standard
     function normalizeVarName(input) {
         const lower = input.toLowerCase().trim();
-        return VAR_MAPPING[lower] || lower.toUpperCase(); // Default to uppercase if no map
+        return (VAR_MAPPING[lower] || lower.toUpperCase()).toUpperCase(); // Ensure uppercase
     }
 
     // Function to check if variable exists in matrix
     function varExists(name) {
         const rows = matrixTable.rows;
         for (let row of rows) {
-            if (row.cells[0].textContent === name) {
+            if (row.cells[0].textContent.toUpperCase() === name.toUpperCase()) {
                 return true;
             }
         }
@@ -50,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = normalizeVarName(rawName);
         const amount = varAmountInput.value.trim();
         const unit = varUnitInput.value.trim();
-        if (name && amount && unit && EM_VARIABLES.includes(name.toUpperCase()) && !varExists(name)) {
+        if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${name}</td>
@@ -97,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Aircraft search placeholder (future: load from aircraft.js)
+    // Temporarily remove functionality; log only
     aircraftSearch.addEventListener('input', (e) => {
         console.log('Searching for aircraft: ' + e.target.value);
         // Future: Filter and auto-populate inputs/matrix
