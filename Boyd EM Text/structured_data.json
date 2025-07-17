@@ -1,0 +1,41 @@
+{
+  "tables": [
+    {
+      "table_id": "TABLE_I",
+      "source_page": 26,
+      "title": "Rutowski Minimum Time Paths (Maximum Power)",
+      "data": [
+        {
+          "aircraft": "F-4C",
+          "paths": {
+            "es_3000_to_70000_ft": {
+              "time_sec": 128,
+              "fuel_weight_used_lb": 3035,
+              "fuel_used_percent": 32
+            },
+            "es_3000_to_95000_ft": {
+              "time_sec": 523,
+              "fuel_weight_used_lb": 5407,
+              "fuel_used_percent": 43
+            }
+          }
+        },
+        {
+          "aircraft": "MIG-21",
+          "paths": {
+            "es_3000_to_70000_ft": {
+              "time_sec": 107,
+              "fuel_weight_used_lb": 1386,
+              "fuel_used_percent": 36
+            },
+            "es_3000_to_95000_ft": {
+              "time_sec": 247,
+              "fuel_weight_used_lb": 1801,
+              "fuel_used_percent": 40
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
