@@ -9,6 +9,10 @@
 #
 import torch
 import pypdfium2 as pdfium
+import sys
+# -- DIAGNOSTIC LINE --
+print(f"pypdfium2 library loaded from: {pdfium.__file__}", file=sys.stderr)
+# ---------------------
 from pathlib import Path
 from PIL import Image
 from transformers import NougatProcessor, VisionEncoderDecoderModel
@@ -23,7 +27,6 @@ def load_environment():
     """
     script_dir = Path(__file__).parent.resolve()
     
-    # 1. Prioritize local .env file at the project root
     local_env_path = script_dir.parent / '.env'
     if local_env_path.exists():
         print(f"Loading environment variables from local: {local_env_path}")
@@ -32,7 +35,6 @@ def load_environment():
             print("Hugging Face token found and loaded from local .env.")
         return
 
-    # 2. Fallback to the aiops_toolkit location
     fallback_env_path = script_dir.parent.parent / 'aiops_toolkit' / '.env'
     if fallback_env_path.exists():
         print(f"Loading environment variables from fallback: {fallback_env_path}")
@@ -52,7 +54,6 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
     print(f"Using device: {device}")
 
     try:
-        # The 'use_auth_token' parameter is implicitly used when HF_TOKEN is a loaded env var
         processor = NougatProcessor.from_pretrained(model_name)
         model = VisionEncoderDecoderModel.from_pretrained(model_name).to(device)
         print("Model and processor loaded successfully.")
