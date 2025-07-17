@@ -10,6 +10,31 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <!-- Link to styles.css -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for equations */
+        .equation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .equation-box {
+            background: #111;
+            padding: 10px;
+            border: 1px solid #FFF;
+            cursor: pointer;
+            text-align: center;
+        }
+        .equation-box:hover {
+            border-color: #00FF00;
+        }
+        #focus-equation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #222;
+            border: 2px solid #00FF00;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -42,7 +67,10 @@
         
         <section id="equations">
             <h2>Equations</h2>
-            <p>Placeholder for equations grid.</p>
+            <div id="equation-grid" class="equation-grid"></div>
+            <div id="focus-equation">
+                <p>Select an equation to focus.</p>
+            </div>
         </section>
         
         <section id="em-text">
@@ -67,5 +95,7 @@
     </script>
     <!-- Link to matrix.js -->
     <script src="matrix.js"></script>
+    <!-- Link to equations.js -->
+    <script src="equations.js"></script>
 </body>
 </html>
