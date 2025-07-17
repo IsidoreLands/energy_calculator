@@ -13,10 +13,11 @@
 </head>
 <body>
     <header>
-        <img id="logo" src="emlogo_large.png" alt="Energy Maneuverability Logo">
+        <img id="logo" src="emlogo_large.png" alt="Energy Maneuverability Logo" onclick="window.location.href='https://www.ooda.wiki';">
         <div id="header-bar"></div>
+        <img id="boyd-avatar-header" src="johnboydpixel.png" alt="John Boyd" onclick="toggleChatPanel();">
     </header>
-    <main>
+    <main id="main-content">
         <h1>Energy Maneuverability</h1>
         <h2>Summary of Energy-Maneuverability Theory</h2>
         <p>Energy-Maneuverability (EM) theory, developed by Colonel John Boyd and Thomas Christie in the 1960s, quantifies aircraft performance by relating energy states (potential + kinetic) to maneuverability. It uses specific excess power \( P_s = V \frac{T - D}{W} \) to evaluate energy rates, enabling comparisons of tactical advantages in air combat. EM diagrams help pilots optimize climbs, turns, and engagements, balancing speed, altitude, thrust, drag, and weight for superior operational efficiency.</p>
@@ -43,11 +44,19 @@
         </section>
     </main>
     <aside id="right-panel">
-        <img id="boyd-avatar" src="johnboydpixel.png" alt="John Boyd">
         <div id="chat-display">
             <!-- Future chat messages go here -->
             <p>Chat placeholder: Ask about EM theory!</p>
         </div>
+        <button onclick="toggleChatPanel();">Toggle Chat</button> <!-- Minimize/maximize button -->
     </aside>
+    <script>
+        function toggleChatPanel() {
+            const panel = document.getElementById('right-panel');
+            const main = document.getElementById('main-content');
+            panel.classList.toggle('hidden');
+            main.classList.toggle('main-full');
+        }
+    </script>
 </body>
 </html>
