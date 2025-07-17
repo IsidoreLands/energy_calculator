@@ -64,36 +64,33 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
         return
 
     try:
-        print("Rendering PDF pages to images...")
-        # CORRECTED LOGIC: Convert the Path object to a string before passing
-        # it to PdfDocument to ensure library compatibility.
-        images = []
+        print("Rendering and processing PDF page by page...")
+        full_markdown = ""
         with pdfium.PdfDocument(str(input_path)) as doc:
-            for i in range(len(doc)):
+            num_pages = len(doc)
+            if num_pages == 0:
+                raise RuntimeError("PDF contains no pages.")
+
+            for i in range(num_pages):
+                print(f"Processing page {i + 1}/{num_pages}...")
                 page = doc[i]
                 bitmap = page.render()
                 pil_image = bitmap.to_pil()
-                images.append(pil__image)
+
+                # Process the image immediately to avoid storing all images in memory
+                pixel_values = processor(pil_image, return_tensors="pt").pixel_values
+
+                outputs = model.generate(
+                    pixel_values.to(device),
+                    min_length=1,
+                    max_length=model.config.max_length,
+                    bad_words_ids=[[processor.tokenizer.unk_token_id]],
+                )
+
+                sequence = processor.batch_decode(outputs, skip_special_tokens=True)[0]
+                markdown_page = processor.post_process_generation(sequence, fix_markdown=True)
+                full_markdown += markdown_page + "\n\n"
         
-        if not images:
-            raise RuntimeError("PDF rendering failed to produce any images.")
-
-        full_markdown = ""
-        for i, image in enumerate(images):
-            print(f"Processing page {i + 1}/{len(images)}...")
-            pixel_values = processor(image, return_tensors="pt").pixel_values
-            
-            outputs = model.generate(
-                pixel_values.to(device),
-                min_length=1,
-                max_length=model.config.max_length,
-                bad_words_ids=[[processor.tokenizer.unk_token_id]],
-            )
-            
-            sequence = processor.batch_decode(outputs, skip_special_tokens=True)[0]
-            markdown_page = processor.post_process_generation(sequence, fix_markdown=True)
-            full_markdown += markdown_page + "\n\n"
-
         print(f"Writing complete output to '{output_path.name}'...")
         with output_path.open("w", encoding="utf-8") as f:
             f.write(full_markdown)
