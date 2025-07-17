@@ -18,14 +18,14 @@ header {
     z-index: 1000;
     display: flex;
     align-items: center;
-    padding: 0;
+    justify-content: space-between; /* Space between logo and avatar */
+    padding: 0 10px;
     min-height: 80px; /* Fixed height */
 }
 #logo {
     display: block;
-    max-width: 25%; /* Adjust as needed */
-    height: auto;
-    margin: 0 10px;
+    height: 50px; /* Adjust based on your logo size */
+    cursor: pointer; /* Indicate it's clickable */
 }
 #header-bar {
     flex-grow: 1;
@@ -33,12 +33,19 @@ header {
     height: 100%;
     min-height: 80px;
 }
+#boyd-avatar-header {
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer; /* Indicate clickable */
+    margin-right: 10px;
+}
 main {
     padding-top: 80px; /* Match header height */
     width: 75%;
     max-width: 900px;
     padding: 20px;
     flex-grow: 1;
+    transition: width 0.3s ease; /* Smooth width change on toggle */
 }
 aside#right-panel {
     position: fixed;
@@ -51,13 +58,7 @@ aside#right-panel {
     overflow-y: auto;
     border-left: 1px solid #00FF00; /* HUD green border */
     box-sizing: border-box;
-}
-#boyd-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto 20px;
+    transition: display 0.3s ease;
 }
 #chat-display {
     background: #000;
@@ -76,6 +77,13 @@ p {
 .mathjax-wrapper {
     color: #FFF;
 }
+/* Hidden class for toggle */
+.hidden {
+    display: none !important;
+}
+.main-full {
+    width: 100% !important;
+}
 /* Responsive: Mobile adjustments */
 @media (max-width: 768px) {
     body {
@@ -84,27 +92,33 @@ p {
     main {
         width: 100%;
         padding-top: 80px;
-        padding-bottom: 200px; /* Space for bottom panel on mobile */
+        padding-bottom: 25vh; /* Space for bottom panel (quarter screen) */
     }
     aside#right-panel {
         position: fixed;
         bottom: 0;
         top: auto;
         width: 100%;
-        height: 200px; /* Fixed height for mobile bottom panel */
+        height: 25vh; /* Bottom quarter */
         border-left: none;
         border-top: 1px solid #00FF00;
     }
     #chat-display {
-        height: 150px; /* Adjust for mobile */
+        height: calc(25vh - 60px); /* Adjust for padding/avatar */
     }
     #header {
         min-height: 60px;
     }
     #logo {
-        max-width: 50%;
+        height: 40px;
+    }
+    #boyd-avatar-header {
+        height: 40px;
     }
     #header-bar {
         min-height: 60px;
+    }
+    .main-full {
+        padding-bottom: 0 !important;
     }
 }
