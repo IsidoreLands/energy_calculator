@@ -3,31 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy Calculator</title>
+    <title>Energy Maneuverability</title>
+    <!-- JetBrains Mono Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- MathJax for LaTeX rendering (future use) -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #333; }
-        p { line-height: 1.6; }
-        ul { list-style-type: disc; margin-left: 20px; }
-        code { background: #f4f4f4; padding: 2px 4px; border-radius: 4px; }
+        body {
+            background-color: #000;
+            color: #FFF;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 255, 0, 0.2); /* Subtle HUD green shadow */
+        }
+        #logo {
+            height: 50px; /* Adjust based on your logo size */
+            margin-right: 20px;
+        }
+        #header-bar {
+            flex-grow: 1;
+            height: 50px; /* Matches logo height */
+            background-color: #000; /* Ensures full black bar */
+        }
+        main {
+            padding-top: 70px; /* Space for fixed header */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #00FF00; /* HUD green for headers */
+        }
+        p {
+            line-height: 1.6;
+        }
+        /* Responsive: Mobile adjustments */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #logo {
+                margin-bottom: 10px;
+            }
+            #header-bar {
+                width: 100%;
+                height: 10px; /* Thinner on mobile if needed */
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Energy Calculator</h1>
-    <p>This is a simple GitHub Pages site for the Energy Calculator project, based on Energy-Maneuverability (EM) theory. The Python scripts in this repository handle logging, unit conversions, matrix derivations, and a central hub for EM variables.</p>
-    
-    <h2>Scripts Overview</h2>
-    <ul>
-        <li><a href="em_logger.py">em_logger.py</a>: Handles derivation of Set B and Set C.</li>
-        <li><a href="em_logged_units.py">em_logged_units.py</a>: Converts units to standard military formats.</li>
-        <li><a href="em_logger_matrix.py">em_logger_matrix.py</a>: Derives Set B from aircraft schema and logs.</li>
-        <li><a href="main_em.py">main_em.py</a>: Central hub to call other scripts.</li>
-    </ul>
-    
-    <h2>Testing the Scripts</h2>
-    <p>To test, clone the repo locally and run the scripts via Python. See the repository README or script comments for details.</p>
-    
-    <h2>Next Steps</h2>
-    <p>This is an early test version. Future updates may include interactive JS demos or links to run the scripts.</p>
+    <header>
+        <img id="logo" src="emlogo_large.png" alt="Energy Maneuverability Logo">
+        <div id="header-bar"></div>
+    </header>
+    <main>
+        <h1>Energy Maneuverability</h1>
+        <h2>Summary of Energy-Maneuverability Theory</h2>
+        <p>Energy-Maneuverability (EM) theory, developed by Colonel John Boyd and Thomas Christie in the 1960s, quantifies aircraft performance by relating energy states (potential + kinetic) to maneuverability. It uses specific excess power (P_s = V * (T - D)/W) to evaluate energy rates, enabling comparisons of tactical advantages in air combat. EM diagrams help pilots optimize climbs, turns, and engagements, balancing speed, altitude, thrust, drag, and weight for superior operational efficiency.</p>
+        
+        <!-- Placeholder for future sections -->
+        <section id="data-entry">
+            <h2>Data Entry</h2>
+            <p>Placeholder for variable inputs, aircraft search, etc.</p>
+        </section>
+        
+        <section id="matrix">
+            <h2>Matrix</h2>
+            <p>Placeholder for variable matrix.</p>
+        </section>
+        
+        <section id="equations">
+            <h2>Equations</h2>
+            <p>Placeholder for equations grid.</p>
+        </section>
+        
+        <section id="em-text">
+            <h2>Energy-Maneuverability Text</h2>
+            <p>Placeholder for cleaned OCR text and graphs.</p>
+        </section>
+    </main>
 </body>
 </html>
