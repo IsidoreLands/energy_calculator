@@ -66,7 +66,10 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
     try:
         print("Rendering and processing PDF page by page...")
         full_markdown = ""
-        with pdfium.PdfDocument(str(input_path)) as doc:
+        # CORRECTED LOGIC: Avoid the 'with' statement and use a 'try/finally'
+        # block to manually and robustly manage the PDF object's lifecycle.
+        doc = pdfium.PdfDocument(str(input_path))
+        try:
             num_pages = len(doc)
             if num_pages == 0:
                 raise RuntimeError("PDF contains no pages.")
@@ -77,7 +80,7 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
                 bitmap = page.render()
                 pil_image = bitmap.to_pil()
 
-                # Process the image immediately to avoid storing all images in memory
+                # Process the image immediately to manage memory
                 pixel_values = processor(pil_image, return_tensors="pt").pixel_values
 
                 outputs = model.generate(
@@ -90,6 +93,10 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
                 sequence = processor.batch_decode(outputs, skip_special_tokens=True)[0]
                 markdown_page = processor.post_process_generation(sequence, fix_markdown=True)
                 full_markdown += markdown_page + "\n\n"
+
+        finally:
+            # Ensure the document is closed no matter what
+            doc.close()
         
         print(f"Writing complete output to '{output_path.name}'...")
         with output_path.open("w", encoding="utf-8") as f:
