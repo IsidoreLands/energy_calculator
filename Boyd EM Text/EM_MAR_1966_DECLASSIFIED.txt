@@ -1,1 +1,352 @@
-Placeholder for the full text of the declassified Boyd E-M Theory paper from March 1966.
+
+\begin{tabular}{l l} \multicol 
+
+
+
+**CON-PHENTHAE**
+
+Export Control
+
+**Redistribution
+
+UNCLASSIFIED
+
+AD NUMBER
+
+AD372287 
+
+The following notice applies to any unclassified (including originaliy classified and now declass 
+
+The classified or limited status of this report applies
+
+1e each page, unless otherwise 
+
+
+## Reproduction Quality Notice
+
+This document is the best quality available 
+
+
+
+\begin{tabular}{c}  \\ \end{tabular}
+
+
+
+FUREARDRD
+
+(U) This report on Project 035 
+
+UNCLASSITLED ABSTRACT
+
+This report shows how an aircraft's energy state and 
+
+CONFEDMS
+
+Section
+
+Page
+
+I. INTRODUCTION
+
+II 
+
+CONFIDITS (Continu4)
+
+\begin{tabular}{l 
+
+SECTION I
+INTEGRUCTION
+
+(U) Aircraft maneuverability can be defined 
+
+Section II
+
+INSTANTANTANTANTANTANTANTANTANTANTANTANT 
+
+Figure 1. F_A& G_V Diagram at 30,0
+
+
+
+-CONFIDENTIAL
+
+SECTION III .
+
+SUSTAINED MANCUR 
+
+discussion on energy state and/or energy rate advantages is the fact that a pilot has 
+
+CWREDENTIAL
+
+CHECK KWIF
+
+(U) For an offensive 
+
+Figure 3. F-MC 1-G Energy Rate Disgram with Superim
+
+
+
+(U) Even though the path developed by this procedure may be satisfactory to the engineer, 
+
+Figure 5: F-AC 3-G Energy Rate Diagram.
+
+Figure
+
+
+
+-CONFIDENTIAL
+
+if the energy values are reversed, the pilot, although 
+
+Inververling adventage. Knowing that energy starts and/or energy rate advantage depends 
+
+Figure 7. Constant (50%) Fuel E-N Efficiency Diagram.
+
+ 
+
+energy transfer takes place. Such information will be provided in "Tactical Applications, 
+
+Figure 9. F_a_c Range Diagram.
+
+ 
+
+SECRET
+
+SECTION IV
+
+TACTICAL APPLICATIONS
+
+( 
+
+Figure 1D. T-4G G-V Diagram at 30,
+
+
+
+Figure 12. F-4C Maximum Power 1-5 Energy Rate Diagram
+
+
+
+The \(\Gamma\)-AC is a function of the \( 
+
+Figure 14. F-AC Maximum Power 3-G Energy Rate Diagram.
+
+ 
+
+Figure 16. F-4C Maximum Power 5-6 Energy Rate Diagram
+
+
+
+Figure 19. XIG-21 Military Power 1_G Energy Rate
+
+
+
+Figure 21. HIG-2l Military Power 3-G Energy Rate
+
+
+
+Figure 23. MF0-21 Military Power 5-G Energy Rate
+
+
+
+Figure 24. F_4C Maximum Power Constant (50%)
+
+
+
+Figure 26. F-SiC Maximum Power Variable Fuel E-M Efficiency Diagram.
+
+ 
+
+SECRET
+
+constant fuel diagram. The greater advantage attributed to the F_LC in 
+
+Figure 28. F-4C Military Power Constant (50%)
+
+
+
+Figure 30. F-Wc Military Power Variable Fuel L-N Efficiency Diagram
+
+
+
+Figure 32. F-4C Range Diagram.
+
+Figure 33
+
+
+
+SEGRET
+
+(S). By comparing the rule-of-thumb 
+
+
+CONFIDENTIAL
+
+SECTION V
+
+REDURDBENTS 
+
+
+[c] The Air Force Amament Laboratory (APATL) 
+
+
+
+Figure I_2. AIM-98/AA_2 Misselle Launch Envelope
+
+
+
+
+MAXIMIMIMIMIMIMIMIMIMIMIMIMIMIM 
+
+Tati-Quarter Attack;
+
+l. Add 2,000 
+
+
+
+
+
+APPENDIX II
+
+MATHDMATICAL DERIVATIONS AND MODELS FOR DEVEL 
+
+DCRIVATIONS
+
+INSTANTANTADOUS MANEUVERAABILITY.
+
+ 
+
+where
+
+h = altitude (ft)
+
+m = aircraft mass 
+
+Figure II-1. Aircraft Force-Balance Diagram.
+
+ 
+
+Since \(\stackrel{{\bullet}}{{h}}\ 
+
+Since \(\mathrm{d}\mathrm{E}_{\mathrm 
+
+RANGE. For any altitude-airspeed combination, available range for cruise condition may be 
+
+reduces to
+
+\[\text{\small E\_{\_ 
+
+EXTENSIONS OF THE AUTONKKI TECHIQUIC
+
+Earlier in 
+
+Actually the array does not run all the way from h\({}_{1 
+
+
+\(\begin{array}{cccccccccccccccccccc 
+
+PART II. THE ERYSON-KELLLEY STECPEST ASC 
+
+The analysis of single stage trajectories by the steepest ascent method has been thoroughly treated in the literature 
+
+
+(8) \(\bar{\mathfrak{f}}
+
+ 
+
+\(\left[\begin{array}{cccc}\frac{ 
+
+where the symbol ' indicates the transpose of the matrix and elements of the three \ 
+
+For \(\epsilon\)-teepest ascent the \(\ 
+
+and the ( )-1 indicates the inverse matrix, and th th + 
+
+THE GELHN PROGRAM
+
+During the spring of 1964, 
+
+2. If the terminal constraint has not been set, check to see if (d 
+
+3. Terminal Constraint Matrix F = n. (p x 1) Mat 
+
+6. Stepping Condition O = O.
+
+a. O = V 
+
+\(\xi_{33}=\frac{\partial\xi}
+
+ 
+
+9. Lagrange Multipliers.
+
+a. \(\vec{\lambda 
+
+\((1)\)\(\hat{\lambda}_{k 
+
+
+
+
+(1) For terminal constraint on h (Program 556 
+
+
+
+\(\lambda_{\Omega_{1}}=\lambda_{ 
+
+14. The Matrix Product \(\{\vec{\lambda}_ 
+
+Combining the results from above,
+
+\(\frac{d\phi^{ 
+
+If the value of \(\left|\alpha\right|\) or 
+
+FART :II. DYNAMIC PROT'LE GENERATOR
+
+The Dynamic 
+
+where \(C_{{}_{b}}\) is the 
+
+where at is the time increment required to fly between (h\({}_ 
+
+
+APPENDIX III
+
+A COMPARISON OF THE BARYSOK- 
+
+difference of 2% pounds (0.%) and 3.6 miles 
+
+Figure III-1. Nutowski Path Comparison Scheme.
+
+TABLE III-2.
+
+ 
+
+(U) For the entire range computation, the percentage errors shown above become insignificant since the 
+
+REFERNCES
+
+1. Rtowaki, E. S., Energy 
+
+
+
+**CONFIDENTIAL**
+
+**Export Control**
+
+[ This page is
+
+
+
+**CONFIDENTIAL**
+
+Export Control
+
+[ This page is intentionally left
+
+
+
+**CONFIDENTIAL**
+
+**Export Control**
+
+DEFENSE TECHN
+
