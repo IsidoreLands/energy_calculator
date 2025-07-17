@@ -40,7 +40,7 @@ header {
     margin-right: 10px;
 }
 main {
-    padding-top: 80px; /* Match header height */
+    padding-top: 80px; /* Exactly match header min-height */
     width: 75%;
     max-width: 900px;
     padding: 20px;
@@ -72,6 +72,7 @@ h1, h2 {
 }
 p {
     line-height: 1.6;
+    margin-top: 0; /* Remove top margin to avoid extra space */
 }
 /* Equation styling */
 .mathjax-wrapper {
