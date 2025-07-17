@@ -9,12 +9,7 @@
 #
 import torch
 import pypdfium2 as pdfium
-import sys
-# -- DIAGNOSTIC LINE --
-print(f"pypdfium2 library loaded from: {pdfium.__file__}", file=sys.stderr)
-# ---------------------
 from pathlib import Path
-from PIL import Image
 from transformers import NougatProcessor, VisionEncoderDecoderModel
 from dotenv import load_dotenv
 import os
@@ -70,8 +65,16 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
 
     try:
         print("Rendering PDF pages to images...")
-        images = pdfium.render_pdf_to_pil(input_path)
+        # CORRECTED LOGIC: Open the PDF into a PdfDocument object first.
+        images = []
+        with pdfium.PdfDocument(input_path) as doc:
+            # Iterate through the document object to render each page to a PIL Image
+            for image in doc.render(render_to="pil"):
+                images.append(image)
         
+        if not images:
+            raise RuntimeError("PDF rendering failed to produce any images.")
+
         full_markdown = ""
         for i, image in enumerate(images):
             print(f"Processing page {i + 1}/{len(images)}...")
