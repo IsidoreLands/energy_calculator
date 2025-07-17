@@ -5,7 +5,7 @@
 # on the E-M Theory PDF, converting it into structured Markdown.
 #
 # Prerequisites:
-# pip install transformers torch sentencepiece Pillow "unstructured[pdf]" pypdf pypdfium2 python-dotenv
+# pip install transformers torch sentencepiece Pillow "unstructured[pdf]" pypdf pypdfium2 python-dotenv python-Levenshtein
 #
 import torch
 import pypdfium2 as pdfium
@@ -66,8 +66,6 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
     try:
         print("Rendering and processing PDF page by page...")
         full_markdown = ""
-        # CORRECTED LOGIC: Avoid the 'with' statement and use a 'try/finally'
-        # block to manually and robustly manage the PDF object's lifecycle.
         doc = pdfium.PdfDocument(str(input_path))
         try:
             num_pages = len(doc)
