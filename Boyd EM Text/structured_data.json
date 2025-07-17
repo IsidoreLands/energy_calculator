@@ -63,6 +63,70 @@
           }
         }
       ]
+    },
+    {
+      "table_id": "TABLE_III",
+      "source_page": 37,
+      "title": "Rutowski Minimum Fuel Paths (Maximum Power)",
+      "data": [
+        {
+          "aircraft": "F-4C",
+          "paths": {
+            "es_3000_to_70000_ft": {
+              "time_sec": 252,
+              "fuel_weight_used_lb": 3206,
+              "fuel_used_percent": 28
+            },
+            "es_3000_to_95000_ft": {
+              "time_sec": 370,
+              "fuel_weight_used_lb": 4970,
+              "fuel_used_percent": 44
+            }
+          }
+        },
+        {
+          "aircraft": "MIG-21",
+          "paths": {
+            "es_3000_to_70000_ft": {
+              "time_sec": 223,
+              "fuel_weight_used_lb": 1235,
+              "fuel_used_percent": 32
+            },
+            "es_3000_to_95000_ft": {
+              "time_sec": 291,
+              "fuel_weight_used_lb": 1713,
+              "fuel_used_percent": 44
+            }
+          }
+        }
+      ]
+    },
+    {
+      "table_id": "TABLE_IV",
+      "source_page": 37,
+      "title": "Rutowski Minimum Fuel Paths (Military Power)",
+      "data": [
+        {
+          "aircraft": "F-4C",
+          "path": {
+            "es_3000_to_45000_ft": {
+              "time_sec": 325,
+              "fuel_weight_used_lb": 1292,
+              "fuel_used_percent": 11
+            }
+          }
+        },
+        {
+          "aircraft": "MIG-21",
+          "path": {
+            "es_3000_to_45000_ft": {
+              "time_sec": 422,
+              "fuel_weight_used_lb": 618,
+              "fuel_used_percent": 16
+            }
+          }
+        }
+      ]
     }
   ]
 }
