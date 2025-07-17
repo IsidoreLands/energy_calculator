@@ -6,65 +6,10 @@
     <title>Energy Maneuverability</title>
     <!-- JetBrains Mono Font Import -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- MathJax for LaTeX rendering (future use) -->
+    <!-- MathJax for LaTeX rendering -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
-    <style>
-        body {
-            background-color: #000;
-            color: #FFF;
-            font-family: 'JetBrains Mono', monospace;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #000;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            box-shadow: 0 2px 5px rgba(0, 255, 0, 0.2); /* Subtle HUD green shadow */
-        }
-        #logo {
-            height: 50px; /* Adjust based on your logo size */
-            margin-right: 20px;
-        }
-        #header-bar {
-            flex-grow: 1;
-            height: 50px; /* Matches logo height */
-            background-color: #000; /* Ensures full black bar */
-        }
-        main {
-            padding-top: 70px; /* Space for fixed header */
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #00FF00; /* HUD green for headers */
-        }
-        p {
-            line-height: 1.6;
-        }
-        /* Responsive: Mobile adjustments */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            #logo {
-                margin-bottom: 10px;
-            }
-            #header-bar {
-                width: 100%;
-                height: 10px; /* Thinner on mobile if needed */
-            }
-        }
-    </style>
+    <!-- Link to styles.css -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -74,7 +19,7 @@
     <main>
         <h1>Energy Maneuverability</h1>
         <h2>Summary of Energy-Maneuverability Theory</h2>
-        <p>Energy-Maneuverability (EM) theory, developed by Colonel John Boyd and Thomas Christie in the 1960s, quantifies aircraft performance by relating energy states (potential + kinetic) to maneuverability. It uses specific excess power (P_s = V * (T - D)/W) to evaluate energy rates, enabling comparisons of tactical advantages in air combat. EM diagrams help pilots optimize climbs, turns, and engagements, balancing speed, altitude, thrust, drag, and weight for superior operational efficiency.</p>
+        <p>Energy-Maneuverability (EM) theory, developed by Colonel John Boyd and Thomas Christie in the 1960s, quantifies aircraft performance by relating energy states (potential + kinetic) to maneuverability. It uses specific excess power \( P_s = V \frac{T - D}{W} \) to evaluate energy rates, enabling comparisons of tactical advantages in air combat. EM diagrams help pilots optimize climbs, turns, and engagements, balancing speed, altitude, thrust, drag, and weight for superior operational efficiency.</p>
         
         <!-- Placeholder for future sections -->
         <section id="data-entry">
