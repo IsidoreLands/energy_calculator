@@ -65,12 +65,15 @@ def convert_pdf_to_markdown(pdf_path_str: str, output_path_str: str, model_name:
 
     try:
         print("Rendering PDF pages to images...")
-        # CORRECTED LOGIC: Open the PDF into a PdfDocument object first.
+        # CORRECTED LOGIC: Use an explicit, page-by-page rendering loop
+        # to avoid resource lifecycle issues with the library.
         images = []
         with pdfium.PdfDocument(input_path) as doc:
-            # Iterate through the document object to render each page to a PIL Image
-            for image in doc.render(render_to="pil"):
-                images.append(image)
+            for i in range(len(doc)):
+                page = doc[i]  # Get page object
+                bitmap = page.render()  # Render page to a bitmap
+                pil_image = bitmap.to_pil()  # Convert bitmap to a PIL Image
+                images.append(pil_image)
         
         if not images:
             raise RuntimeError("PDF rendering failed to produce any images.")
