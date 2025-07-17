@@ -36,6 +36,33 @@
           }
         }
       ]
+    },
+    {
+      "table_id": "TABLE_II",
+      "source_page": 29,
+      "title": "Rutowski Minimum Time Paths (Military Power)",
+      "data": [
+        {
+          "aircraft": "F-4C",
+          "path": {
+            "es_3000_to_45000_ft": {
+              "time_sec": 309,
+              "fuel_weight_used_lb": 1341,
+              "fuel_used_percent": 12
+            }
+          }
+        },
+        {
+          "aircraft": "MIG-21",
+          "path": {
+            "es_3000_to_45000_ft": {
+              "time_sec": 403,
+              "fuel_weight_used_lb": 615,
+              "fuel_used_percent": 17
+            }
+          }
+        }
+      ]
     }
   ]
 }
