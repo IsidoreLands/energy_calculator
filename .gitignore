@@ -1,1 +1,2 @@
 # Placeholder .gitignore\n__pycache__/\n*.pyc
+.env
