@@ -21,7 +21,7 @@ header {
     align-items: center;
     justify-content: space-between; /* Space between logo and avatar */
     padding: 0 10px;
-    min-height: 80px; /* Fixed height */
+    height: 80px; /* Fixed height */
 }
 #logo {
     display: block;
@@ -32,7 +32,6 @@ header {
     flex-grow: 1;
     background-color: #000;
     height: 100%;
-    min-height: 80px;
 }
 #boyd-avatar-header {
     height: 50px;
@@ -41,7 +40,7 @@ header {
     margin-right: 10px;
 }
 main {
-    padding-top: 80px; /* Exactly match header min-height */
+    margin-top: 80px; /* Exactly match header height */
     width: 75%;
     max-width: 900px;
     padding: 20px;
@@ -94,7 +93,7 @@ p {
     }
     main {
         width: 100%;
-        padding-top: 80px;
+        margin-top: 80px;
         padding-bottom: 25vh; /* Space for bottom panel (quarter screen) */
     }
     aside#right-panel {
@@ -143,4 +142,8 @@ p {
     padding: 9px 15px;
     cursor: pointer;
     font-family: 'JetBrains Mono', monospace;
+}
+
+.converted-unit {
+    border: 2px solid yellow;
 }

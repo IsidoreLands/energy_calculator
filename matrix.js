@@ -13,8 +13,8 @@ const EM_VARIABLES = [
 const UNIT_AUTOCOMPLETE = {
     'r': 'ft',
     'V': 'ft/sec',
-    'g': 'ft/sec²',
-    'N_r': 'g-units',
+    'g': 'g',
+    'N_r': 'dimensionless',
     'ω': 'rad/sec',
     'q': 'lb/ft²',
     'ρ': 'slugs/ft³',
@@ -27,14 +27,14 @@ const UNIT_AUTOCOMPLETE = {
     'T': 'lb',
     'D': 'lb',
     'Ṅ': 'ft/sec²',
-    'γ': 'rad',
+    'γ': 'deg',
     'ḣ': 'ft/sec',
     'E-ME': 'ft',
     'P_s*': 'ft/sec',
     'ẇ_f': 'lb/sec',
     'w_f': 'lb',
     'R': 'nautical miles',
-    'V_ts': 'ft/sec',
+    'V_ts': 'knots',
     'ẇ_c': 'lb/sec',
     'W_f': 'lb',
     'x': 'nautical miles',
@@ -44,7 +44,7 @@ const UNIT_AUTOCOMPLETE = {
     'C_L': 'dimensionless',
     'S': 'ft²',
     'C_{L_max}': 'dimensionless',
-    'n_L': 'g-units'
+    'n_L': 'g'
 };
 
 const VAR_MAPPING = {
@@ -156,14 +156,24 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.addEventListener('click', () => {
         const rawName = varNameInput.value.trim();
         const name = normalizeVarName(rawName);
-        const amount = varAmountInput.value.trim();
-        const unit = varUnitInput.value.trim();
+        let amount = varAmountInput.value.trim();
+        let unit = varUnitInput.value.trim();
         if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
+            const targetUnit = UNIT_AUTOCOMPLETE[name];
+            const convertedAmount = convertUnit(amount, unit, targetUnit);
+
+            if (convertedAmount !== null) {
+                amount = convertedAmount;
+                unit = targetUnit;
+            }
+
             const row = document.createElement('tr');
+            row.dataset.originalAmount = varAmountInput.value.trim();
+            row.dataset.originalUnit = varUnitInput.value.trim();
             row.innerHTML = `
                 <td>${name}</td>
                 <td>${amount}</td>
-                <td>${unit}</td>
+                <td class="${convertedAmount !== null ? 'converted-unit' : ''}">${unit}</td>
                 <td>
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -186,23 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         matrixTable.innerHTML = '';
     });
 
-    // Function to add edit/delete listeners to a row
-    function addRowListeners(row) {
-        const editBtn = row.querySelector('.edit-btn');
-        const deleteBtn = row.querySelector('.delete-btn');
-        
-        editBtn.addEventListener('click', () => {
-            const cells = row.cells;
-            varNameInput.value = cells[0].textContent;
-            varAmountInput.value = cells[1].textContent;
-            varUnitInput.value = cells[2].textContent;
-            row.remove(); // Remove old row; re-add after edit
-        });
-        
-        deleteBtn.addEventListener('click', () => {
-            row.remove();
-        });
-    }
 
     // Aircraft search placeholder (future: load from aircraft.js)
     // Temporarily remove functionality; log only
