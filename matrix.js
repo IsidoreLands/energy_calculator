@@ -196,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         matrixTable.innerHTML = '';
     });
 
-
     // Aircraft search placeholder (future: load from aircraft.js)
     // Temporarily remove functionality; log only
     aircraftSearch.addEventListener('input', (e) => {
