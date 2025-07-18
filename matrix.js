@@ -3,25 +3,119 @@
 // Preload EM variables from memo appendix (as array for now; later from JSON)
 // Uppercase for consistency
 const EM_VARIABLES = [
-    'R', 'V', 'G', 'N_R', 'Ω', 'Q', 'Ρ', 'E', 'W', 'H', 'M', 'E_S',
-    'P_S', 'T', 'D', 'Ṅ', 'Γ', 'Ḣ', 'E-ME', 'P_S*', 'Ẇ_F', 'W_F',
-    'R', 'V_TS', 'Ẇ_C', 'W_F', 'X', 'C_D', 'C_{D0}', 'K', 'C_L', 'S',
-    'C_{L_MAX}', 'N_L'
+    'r', 'V', 'g', 'N_r', 'ω', 'q', 'ρ', 'E', 'W', 'h', 'm', 'E_s',
+    'P_s', 'T', 'D', 'Ṅ', 'γ', 'ḣ', 'E-ME', 'P_s*', 'ẇ_f', 'w_f',
+    'R', 'V_ts', 'ẇ_c', 'W_f', 'x', 'C_D', 'C_{D0}', 'k', 'C_L', 'S',
+    'C_{L_max}', 'n_L'
 ];
 
 // Expanded mapping for longforms and case-insensitivity (keys lowercase)
+const UNIT_AUTOCOMPLETE = {
+    'r': 'ft',
+    'V': 'ft/sec',
+    'g': 'ft/sec²',
+    'N_r': 'g-units',
+    'ω': 'rad/sec',
+    'q': 'lb/ft²',
+    'ρ': 'slugs/ft³',
+    'E': 'ft-lb',
+    'W': 'lb',
+    'h': 'ft',
+    'm': 'slugs',
+    'E_s': 'ft',
+    'P_s': 'ft/sec',
+    'T': 'lb',
+    'D': 'lb',
+    'Ṅ': 'ft/sec²',
+    'γ': 'rad',
+    'ḣ': 'ft/sec',
+    'E-ME': 'ft',
+    'P_s*': 'ft/sec',
+    'ẇ_f': 'lb/sec',
+    'w_f': 'lb',
+    'R': 'nautical miles',
+    'V_ts': 'ft/sec',
+    'ẇ_c': 'lb/sec',
+    'W_f': 'lb',
+    'x': 'nautical miles',
+    'C_D': 'dimensionless',
+    'C_{D0}': 'dimensionless',
+    'k': 'dimensionless',
+    'C_L': 'dimensionless',
+    'S': 'ft²',
+    'C_{L_max}': 'dimensionless',
+    'n_L': 'g-units'
+};
+
 const VAR_MAPPING = {
+    'r': 'r',
+    'turn radius': 'r',
     'v': 'V',
-    'velocity': 'V',
-    'p_s': 'P_S',
-    'specific excess power': 'P_S',
+    'true airspeed': 'V',
+    'g': 'g',
+    'gravitational acceleration': 'g',
+    'n_r': 'N_r',
+    'radial load factor': 'N_r',
+    'ω': 'ω',
+    'turn rate': 'ω',
+    'q': 'q',
+    'dynamic pressure': 'q',
+    'ρ': 'ρ',
+    'atmospheric density': 'ρ',
+    'e': 'E',
+    'total energy': 'E',
+    'w': 'W',
+    'aircraft weight': 'W',
+    'h': 'h',
+    'altitude': 'h',
+    'm': 'm',
+    'aircraft mass': 'm',
+    'e_s': 'E_s',
+    'specific energy': 'E_s',
+    'p_s': 'P_s',
+    'specific excess power': 'P_s',
     't': 'T',
     'thrust': 'T',
     'd': 'D',
     'drag': 'D',
-    'w': 'W',
-    'weight': 'W',
-    // Add more as needed, e.g., 'altitude': 'H'
+    'ṅ': 'Ṅ',
+    'acceleration along flight path': 'Ṅ',
+    'γ': 'γ',
+    'pitch angle': 'γ',
+    'ḣ': 'ḣ',
+    'altitude rate': 'ḣ',
+    'e-me': 'E-ME',
+    'energy-maneuverability efficiency': 'E-ME',
+    'p_s*': 'P_s*',
+    'average specific excess power': 'P_s*',
+    'ẇ_f': 'ẇ_f',
+    'fuel flow rate': 'ẇ_f',
+    'w_f': 'w_f',
+    'fuel weight': 'w_f',
+    'r': 'R',
+    'range': 'R',
+    'v_ts': 'V_ts',
+    'true airspeed in cruise': 'V_ts',
+    'ẇ_c': 'ẇ_c',
+    'cruise fuel flow': 'ẇ_c',
+    'w_f': 'W_f',
+    'available fuel weight': 'W_f',
+    'x': 'x',
+    'horizontal distance traversed': 'x',
+    'c_d': 'C_D',
+    'drag coefficient': 'C_D',
+    'c_d0': 'C_{D0}',
+    'zero-lift drag coefficient': 'C_{D0}',
+    'k': 'k',
+    'induced drag factor': 'k',
+    'c_l': 'C_L',
+    'lift coefficient': 'C_L',
+    's': 'S',
+    'wing reference area': 'S',
+    'c_l_max': 'C_{L_max}',
+    'maximum lift coefficient': 'C_{L_max}',
+    'n_l': 'n_L',
+    'maximum normal acceleration': 'n_L'
 };
 
 // Event listener setup on DOM load
@@ -34,10 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
     const aircraftSearch = document.getElementById('aircraft-search');
 
+    varNameInput.addEventListener('input', () => {
+        const normalizedVar = normalizeVarName(varNameInput.value);
+        if (UNIT_AUTOCOMPLETE[normalizedVar]) {
+            varUnitInput.value = UNIT_AUTOCOMPLETE[normalizedVar];
+        }
+    });
+
     // Function to normalize variable name to uppercase standard
     function normalizeVarName(input) {
         const lower = input.toLowerCase().trim();
-        return (VAR_MAPPING[lower] || lower.toUpperCase()).toUpperCase(); // Ensure uppercase
+        return (VAR_MAPPING[lower] || lower.toUpperCase());
     }
 
     // Function to check if variable exists in matrix
@@ -55,14 +156,24 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.addEventListener('click', () => {
         const rawName = varNameInput.value.trim();
         const name = normalizeVarName(rawName);
-        const amount = varAmountInput.value.trim();
-        const unit = varUnitInput.value.trim();
+        let amount = varAmountInput.value.trim();
+        let unit = varUnitInput.value.trim();
         if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
+            const targetUnit = UNIT_AUTOCOMPLETE[name];
+            const convertedAmount = convertUnit(amount, unit, targetUnit);
+
+            if (convertedAmount !== null) {
+                amount = convertedAmount;
+                unit = targetUnit;
+            }
+
             const row = document.createElement('tr');
+            row.dataset.originalAmount = varAmountInput.value.trim();
+            row.dataset.originalUnit = varUnitInput.value.trim();
             row.innerHTML = `
                 <td>${name}</td>
                 <td>${amount}</td>
-                <td>${unit}</td>
+                <td class="${convertedAmount !== null ? 'converted-unit' : ''}">${unit}</td>
                 <td>
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
@@ -85,23 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         matrixTable.innerHTML = '';
     });
 
-    // Function to add edit/delete listeners to a row
-    function addRowListeners(row) {
-        const editBtn = row.querySelector('.edit-btn');
-        const deleteBtn = row.querySelector('.delete-btn');
-        
-        editBtn.addEventListener('click', () => {
-            const cells = row.cells;
-            varNameInput.value = cells[0].textContent;
-            varAmountInput.value = cells[1].textContent;
-            varUnitInput.value = cells[2].textContent;
-            row.remove(); // Remove old row; re-add after edit
-        });
-        
-        deleteBtn.addEventListener('click', () => {
-            row.remove();
-        });
-    }
 
     // Aircraft search placeholder (future: load from aircraft.js)
     // Temporarily remove functionality; log only
