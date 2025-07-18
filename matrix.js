@@ -10,6 +10,43 @@ const EM_VARIABLES = [
 ];
 
 // Expanded mapping for longforms and case-insensitivity (keys lowercase)
+const UNIT_AUTOCOMPLETE = {
+    'r': 'ft',
+    'V': 'ft/sec',
+    'g': 'ft/sec²',
+    'N_r': 'g-units',
+    'ω': 'rad/sec',
+    'q': 'lb/ft²',
+    'ρ': 'slugs/ft³',
+    'E': 'ft-lb',
+    'W': 'lb',
+    'h': 'ft',
+    'm': 'slugs',
+    'E_s': 'ft',
+    'P_s': 'ft/sec',
+    'T': 'lb',
+    'D': 'lb',
+    'Ṅ': 'ft/sec²',
+    'γ': 'rad',
+    'ḣ': 'ft/sec',
+    'E-ME': 'ft',
+    'P_s*': 'ft/sec',
+    'ẇ_f': 'lb/sec',
+    'w_f': 'lb',
+    'R': 'nautical miles',
+    'V_ts': 'ft/sec',
+    'ẇ_c': 'lb/sec',
+    'W_f': 'lb',
+    'x': 'nautical miles',
+    'C_D': 'dimensionless',
+    'C_{D0}': 'dimensionless',
+    'k': 'dimensionless',
+    'C_L': 'dimensionless',
+    'S': 'ft²',
+    'C_{L_max}': 'dimensionless',
+    'n_L': 'g-units'
+};
+
 const VAR_MAPPING = {
     'r': 'r',
     'turn radius': 'r',
@@ -91,6 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
     const aircraftSearch = document.getElementById('aircraft-search');
 
+    varNameInput.addEventListener('input', () => {
+        const normalizedVar = normalizeVarName(varNameInput.value);
+        if (UNIT_AUTOCOMPLETE[normalizedVar]) {
+            varUnitInput.value = UNIT_AUTOCOMPLETE[normalizedVar];
+        }
+    });
+
     // Function to normalize variable name to uppercase standard
     function normalizeVarName(input) {
         const lower = input.toLowerCase().trim();
@@ -115,6 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = varAmountInput.value.trim();
         const unit = varUnitInput.value.trim();
         if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
+            const startRect = varAmountInput.getBoundingClientRect();
+            const endRect = matrixTable.getBoundingClientRect();
+
+            createParticleAnimation(startRect.left, startRect.top, endRect.left + endRect.width / 2, endRect.top + endRect.height / 2, amount);
+
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${name}</td>

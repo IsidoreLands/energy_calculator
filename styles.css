@@ -125,3 +125,22 @@ p {
         padding-bottom: 0 !important;
     }
 }
+
+/* Data entry styling */
+#data-entry input[type="text"] {
+    background-color: transparent;
+    color: #FFF;
+    border: 1px solid #00FF00; /* HUD green */
+    padding: 8px;
+    margin-right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#data-entry button {
+    background-color: #00FF00;
+    color: #000;
+    border: none;
+    padding: 9px 15px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+}
