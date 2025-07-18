@@ -1,1 +1,68 @@
-# placeholder
+CONTENTS
+
+Section
+I. INTRODUCTION ............................................. 1
+
+II. INSTANTANEOUS MANEUVERABILITY ............................. 2
+
+III. SUSTAINED MANEUVERABILITY ................................ 4
+   General .................................................. 4
+   Energy Rate .............................................. 5
+   Efficiency ............................................... 10
+   Range .................................................... 13
+
+IV. TACTICAL APPLICATIONS .................................... 15
+
+V. REQUIREMENTS ............................................. 31
+
+APPENDIX I RULE-OF-THUMB PERFORMANCE CAPABILITY OF AIM-7E AND AIM-9B/AA-2 MISSILES .. 32
+
+APPENDIX II MATHEMATICAL DERIVATIONS AND MODELS FOR DEVELOPING ENERGY-MANEUVERABILITY THEORY AND ASSOCIATED FLIGHT PATHS ................ 39
+
+APPENDIX III ..................................................... 74
+
+REFERENCES ....................................................... 78
+
+ILLUSTRATIONS
+
+Figure
+1. F-4C G-V Diagram at 30,000 Feet .......................... 3
+2. F-4C Steady-State Envelope ................................ 5
+3. F-4C 2-G Energy Rate Diagram with Superimposed Rutkowski Minimum Time Path ............................................. 7
+4. F-4C 2-G Energy Rate Diagram with Superimposed Rule-of-Thumb Path ....................................................... 7
+5. F-4C 3-G Energy Rate Diagram ................................ 9
+6. F-4C 5-G Energy Rate Diagram ................................ 9
+7. Constant (50%) Fuel E-M Efficiency Diagram ................ 12
+8. F-4C Variable Fuel E-M Efficiency Diagram .................. 12
+9. F-4C Range Diagram ......................................... 14
+10. F-4C G-V Diagram at 30,000 Feet .......................... 16
+11. MIG-21 G-V Diagram at 30,000 Feet ........................ 16
+12. F-4C Maximum Power 1-G Energy Rate Diagram ............... 17
+13. MIG-21 Maximum Power 1-G Energy Rate Diagram ............. 17
+14. F-4C Maximum Power 3-G Energy Rate Diagram ............... 19
+15. MIG-21 Maximum Power 3-G Energy Rate Diagram ............. 19
+16. F-4C Maximum Power 5-G Energy Rate Diagram ............... 20
+17. MIG-21 Maximum Power 5-G Energy Rate Diagram ............. 20
+18. F-4C Military Power 1-G Energy Rate Diagram .............. 21
+19. MIG-21 Military Power 1-G Energy Rate Diagram ............ 21
+20. F-4C Military Power 3-G Energy Rate Diagram .............. 22
+21. MIG-21 Military Power 3-G Energy Rate Diagram ............ 22
+22. F-4C Military Power 5-G Energy Rate Diagram .............. 23
+23. MIG-21 Military Power 5-G Energy Rate Diagram ............ 23
+24. F-4C Maximum Power Constant (50%) Fuel E-M Efficiency Diagram ..................................................... 24
+25. MIG-21 Maximum Power Constant (50%) Fuel E-M Efficiency Diagram ..................................................... 24
+26. F-4C Maximum Power Variable Fuel E-M Efficiency Diagram .. 25
+27. MIG-21 Maximum Power Variable Fuel E-M Efficiency Diagram 25
+28. F-4C Military Power Constant (50%) Fuel E-M Efficiency Diagram ..................................................... 27
+29. MIG-21 Military Power Constant (50%) Fuel E-M Efficiency Diagram ..................................................... 27
+30. F-4C Military Power Variable Fuel E-M Efficiency Diagram . 28
+31. MIG-21 Military Power Variable Fuel E-M Efficiency Diagram 28
+32. F-4C Range Diagram ......................................... 29
+33. MIG-21 Range Diagram ........................................ 29
+
+APPENDIX FIGURES
+I-1. AIM-7E Missile Launch Envelope ........................... 33
+I-2. AIM-9B/AA-2 Missile Launch Envelope ...................... 34
+II-1. Aircraft Force-Balance Diagram ........................... 42
+II-2. Typical Rutkowski Path Used by the Dynamic Profile Generator ..................................................... 72
+III-1. Rutkowski Path Comparison Scheme ......................... 76
