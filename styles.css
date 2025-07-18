@@ -143,3 +143,7 @@ p {
     cursor: pointer;
     font-family: 'JetBrains Mono', monospace;
 }
+
+.converted-unit {
+    border: 2px solid yellow;
+}

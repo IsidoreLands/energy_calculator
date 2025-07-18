@@ -156,14 +156,24 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.addEventListener('click', () => {
         const rawName = varNameInput.value.trim();
         const name = normalizeVarName(rawName);
-        const amount = varAmountInput.value.trim();
-        const unit = varUnitInput.value.trim();
+        let amount = varAmountInput.value.trim();
+        let unit = varUnitInput.value.trim();
         if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
+            const targetUnit = UNIT_AUTOCOMPLETE[name];
+            const convertedAmount = convertUnit(amount, unit, targetUnit);
+
+            if (convertedAmount !== null) {
+                amount = convertedAmount;
+                unit = targetUnit;
+            }
+
             const row = document.createElement('tr');
+            row.dataset.originalAmount = varAmountInput.value.trim();
+            row.dataset.originalUnit = varUnitInput.value.trim();
             row.innerHTML = `
                 <td>${name}</td>
                 <td>${amount}</td>
-                <td>${unit}</td>
+                <td class="${convertedAmount !== null ? 'converted-unit' : ''}">${unit}</td>
                 <td>
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
