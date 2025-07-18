@@ -147,3 +147,7 @@ p {
 .converted-unit {
     border: 2px solid yellow;
 }
+
+.equation-box .mathjax-wrapper, #focus-equation .mathjax-wrapper {
+    font-size: 0.8em;
+}
