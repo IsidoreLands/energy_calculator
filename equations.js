@@ -127,11 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const matrixRows = document.querySelectorAll('#matrix-table tbody tr');
         const enteredVars = new Set();
         matrixRows.forEach(row => {
-            enteredVars.add(row.cells[0].textContent.toUpperCase());
+            enteredVars.add(row.cells[0].textContent);
         });
 
         document.querySelectorAll('.equation-box').forEach((box, index) => {
-            const required = EM_EQUATIONS[index].requiredVars.map(v => v.toUpperCase());
+            const required = EM_EQUATIONS[index].requiredVars;
             const hasAll = required.every(v => enteredVars.has(v));
             box.style.border = hasAll ? '2px solid #00FF41' : '1px solid #00AA00'; // HUD green if derivable
         });
@@ -143,12 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
         focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${eq.latex} \\]</p>`;
         MathJax.typesetPromise(); // Re-render LaTeX
 
-        const required = eq.requiredVars.map(v => v.toUpperCase());
+        const required = eq.requiredVars;
         const matrixRows = document.querySelectorAll('#matrix-table tbody tr');
         const enteredVars = new Set();
         const varValues = {};
         matrixRows.forEach(row => {
-            const varName = row.cells[0].textContent.toUpperCase();
+            const varName = row.cells[0].textContent;
             enteredVars.add(varName);
             varValues[varName] = row.cells[1].textContent;
         });
@@ -159,15 +159,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const startRect = focus.getBoundingClientRect();
             const endRect = document.getElementById('matrix-table').getBoundingClientRect();
             let calculationString = eq.latex;
+            let calculationResult = eq.latex;
             for (const key in varValues) {
                 if (Object.hasOwnProperty.call(varValues, key)) {
                     const value = varValues[key];
                     const regExp = new RegExp(key, "g");
                     calculationString = calculationString.replace(regExp, value);
+                    calculationResult = calculationResult.replace(regExp, value);
                 }
             }
+
+            // Perform calculation
+            let result;
+            try {
+                result = math.evaluate(calculationResult);
+            } catch (error) {
+                result = "Error";
+            }
+
             createParticleAnimation(endRect.left + endRect.width/2, endRect.top + endRect.height/2, startRect.left + startRect.width/2, startRect.top + startRect.height/2, "");
-            focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${calculationString} \\]</p>`;
+            focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${calculationString} = ${result} \\]</p>`;
             MathJax.typesetPromise(); // Re-render LaTeX
         }
     }

@@ -159,11 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = varAmountInput.value.trim();
         const unit = varUnitInput.value.trim();
         if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
-            const startRect = varAmountInput.getBoundingClientRect();
-            const endRect = matrixTable.getBoundingClientRect();
-
-            createParticleAnimation(startRect.left, startRect.top, endRect.left + endRect.width / 2, endRect.top + endRect.height / 2, amount);
-
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${name}</td>
