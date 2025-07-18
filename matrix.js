@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to normalize variable name to uppercase standard
     function normalizeVarName(input) {
         const lower = input.toLowerCase().trim();
-        return (VAR_MAPPING[lower] || lower.toUpperCase()).toUpperCase(); // Ensure uppercase
+        return (VAR_MAPPING[lower] || lower.toUpperCase());
     }
 
     // Function to check if variable exists in matrix
