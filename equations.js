@@ -196,6 +196,23 @@ document.addEventListener('DOMContentLoaded', () => {
             createParticleAnimation(endRect.left + endRect.width/2, endRect.top + endRect.height/2, startRect.left + startRect.width/2, startRect.top + startRect.height/2, "");
             focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${calculationString} = ${result} \\]</p>`;
             MathJax.typesetPromise(); // Re-render LaTeX
+        } else {
+            const missingVars = required.filter(v => !enteredVars.has(v));
+            const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
+            missingVars.forEach(v => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${v}</td>
+                    <td></td>
+                    <td>${UNIT_AUTOCOMPLETE[v] || ''}</td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                `;
+                matrixTable.appendChild(row);
+                addRowListeners(row);
+            });
         }
     }
 

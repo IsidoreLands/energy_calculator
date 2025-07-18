@@ -186,23 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
         matrixTable.innerHTML = '';
     });
 
-    // Function to add edit/delete listeners to a row
-    function addRowListeners(row) {
-        const editBtn = row.querySelector('.edit-btn');
-        const deleteBtn = row.querySelector('.delete-btn');
-        
-        editBtn.addEventListener('click', () => {
-            const cells = row.cells;
-            varNameInput.value = cells[0].textContent;
-            varAmountInput.value = cells[1].textContent;
-            varUnitInput.value = cells[2].textContent;
-            row.remove(); // Remove old row; re-add after edit
-        });
-        
-        deleteBtn.addEventListener('click', () => {
-            row.remove();
-        });
-    }
 
     // Aircraft search placeholder (future: load from aircraft.js)
     // Temporarily remove functionality; log only
