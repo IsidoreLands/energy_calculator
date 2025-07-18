@@ -125,3 +125,7 @@ p {
         padding-bottom: 0 !important;
     }
 }
+
+.converted-unit {
+    border: 2px solid yellow;
+}
