@@ -4,36 +4,108 @@
 const EM_EQUATIONS = [
     {
         name: 'Specific Excess Power (P_s)',
-        latex: 'P_s = V \\frac{T - D}{W}',
-        requiredVars: ['V', 'T', 'D', 'W']
+        latex: 'P_s = \\frac{(T - D)V}{W}',
+        requiredVars: ['T', 'D', 'V', 'W'],
+        derivedVars: {
+            'T': 'D + \\frac{P_s W}{V}',
+            'D': 'T - \\frac{P_s W}{V}',
+            'W': '\\frac{(T - D)V}{P_s}',
+            'V': '\\frac{P_s W}{T - D}'
+        }
     },
     {
-        name: 'Turn Radius (r)',
-        latex: 'r = \\frac{V^2}{g N_r}',
-        requiredVars: ['V', 'g', 'N_r']
+        name: 'Energy-Maneuverability Efficiency (E-ME)',
+        latex: 'E-ME = \\frac{P_s^* w_f}{\\dot{w}_f}',
+        requiredVars: ['P_s*', 'w_f', 'ẇ_f'],
+        derivedVars: {
+            'P_s*': '\\frac{E-ME \\dot{w}_f}{w_f}',
+            'w_f': '\\frac{E-ME \\dot{w}_f}{P_s^*}',
+            'ẇ_f': '\\frac{P_s^* w_f}{E-ME}'
+        }
     },
     {
-        name: 'Turn Rate (ω)',
-        latex: '\\omega = \\frac{g N_r}{V}',
-        requiredVars: ['g', 'N_r', 'V']
+        name: 'Range (R)',
+        latex: 'R = \\frac{V_{ts} W_f}{\\dot{w}_c} + x',
+        requiredVars: ['V_ts', 'W_f', 'ẇ_c', 'x'],
+        derivedVars: {
+            'V_ts': '\\frac{(R - x) \\dot{w}_c}{W_f}',
+            'W_f': '\\frac{(R - x) \\dot{w}_c}{V_{ts}}',
+            'ẇ_c': '\\frac{V_{ts} W_f}{R - x}',
+            'x': 'R - \\frac{V_{ts} W_f}{\\dot{w}_c}'
+        }
     },
     {
         name: 'Dynamic Pressure (q)',
         latex: 'q = \\frac{1}{2} \\rho V^2',
-        requiredVars: ['ρ', 'V']
-    },
-    // Add more equations from EM theory...
-    {
-        name: 'Energy-Maneuverability Efficiency (E-ME)',
-        latex: 'E-ME = \\frac{P_s^*}{\\dot{w}_f} w_f',
-        requiredVars: ['P_s*', '\\dot{w}_f', 'w_f']
+        requiredVars: ['ρ', 'V'],
+        derivedVars: {
+            'ρ': '\\frac{2q}{V^2}',
+            'V': '\\sqrt{\\frac{2q}{\\rho}}'
+        }
     },
     {
-        name: 'Range (R)',
-        latex: 'R = \\frac{V_{ts}}{\\dot{w}_c} W_f + x',
-        requiredVars: ['V_ts', '\\dot{w}_c', 'W_f', 'x']
+        name: 'Turn Radius (r)',
+        latex: 'r = \\frac{V^2}{g N_r}',
+        requiredVars: ['V', 'g', 'N_r'],
+        derivedVars: {
+            'V': '\\sqrt{r g N_r}',
+            'N_r': '\\frac{V^2}{g r}'
+        }
+    },
+    {
+        name: 'Turn Rate (ω)',
+        latex: '\\omega = \\frac{g N_r}{V}',
+        requiredVars: ['g', 'N_r', 'V'],
+        derivedVars: {
+            'N_r': '\\frac{\\omega V}{g}',
+            'V': '\\frac{g N_r}{\\omega}'
+        }
+    },
+    {
+        name: 'Specific Energy (E_s)',
+        latex: 'E_s = h + \\frac{V^2}{2g}',
+        requiredVars: ['h', 'V', 'g'],
+        derivedVars: {
+            'h': 'E_s - \\frac{V^2}{2g}',
+            'V': '\\sqrt{2g(E_s - h)}'
+        }
+    },
+    {
+        name: 'Acceleration (Ṅ)',
+        latex: '\\dot{N} = \\frac{T - D - W \\sin \\gamma}{m}',
+        requiredVars: ['T', 'D', 'W', 'γ', 'm'],
+        derivedVars: {
+            'T': '\\dot{N} m + D + W \\sin \\gamma',
+            'D': 'T - \\dot{N} m - W \\sin \\gamma',
+            'W': '\\frac{T - D - \\dot{N} m}{\\sin \\gamma}',
+            'γ': '\\arcsin\\left(\\frac{T - D - \\dot{N} m}{W}\\right)',
+            'm': '\\frac{T - D - W \\sin \\gamma}{\\dot{N}}'
+        }
+    },
+    {
+        name: 'Climb Rate (ḣ)',
+        latex: '\\dot{h} = V \\sin \\gamma',
+        requiredVars: ['V', 'γ'],
+        derivedVars: {
+            'V': '\\frac{\\dot{h}}{\\sin \\gamma}',
+            'γ': '\\arcsin\\left(\\frac{\\dot{h}}{V}\\right)'
+        }
+    },
+    {
+        name: 'Drag Coefficient (C_D)',
+        latex: 'D = q S C_D',
+        requiredVars: ['q', 'S', 'C_D'],
+        derivedVars: {
+            'q': '\\frac{D}{S C_D}',
+            'S': '\\frac{D}{q C_D}',
+            'C_D': '\\frac{D}{q S}'
+        }
+    },
+    {
+        name: 'Total Energy (E)',
+        latex: 'E = W \\left(h + \\frac{V^2}{2g}\\right)',
+        requiredVars: ['W', 'h', 'V', 'g']
     }
-    // Extend with all from memo
 ];
 
 // Event listener setup on DOM load
