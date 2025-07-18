@@ -20,18 +20,18 @@
         .equation-box {
             background: #111;
             padding: 10px;
-            border: 1px solid #FFF;
+            border: 1px solid #00AA00;
             cursor: pointer;
             text-align: center;
         }
         .equation-box:hover {
-            border-color: #00FF00;
+            border-color: #00FF41;
         }
         #focus-equation {
             margin-top: 20px;
             padding: 20px;
             background: #222;
-            border: 2px solid #00FF00;
+            border: 2px solid #00FF41;
             text-align: center;
         }
     </style>
@@ -67,10 +67,10 @@
         
         <section id="equations">
             <h2>Equations</h2>
-            <div id="equation-grid" class="equation-grid"></div>
             <div id="focus-equation">
                 <p>Select an equation to focus.</p>
             </div>
+            <div id="equation-grid" class="equation-grid"></div>
         </section>
         
         <section id="em-text">
@@ -97,5 +97,11 @@
     <script src="matrix.js"></script>
     <!-- Link to equations.js -->
     <script src="equations.js"></script>
+    <!-- Three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Math.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
+    <!-- Link to particles.js -->
+    <script src="particles.js"></script>
 </body>
 </html>
