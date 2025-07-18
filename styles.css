@@ -41,7 +41,7 @@ header {
     margin-right: 10px;
 }
 main {
-    padding-top: 80px; /* Exactly match header min-height */
+    padding-top: 100px; /* Increased padding to prevent clipping */
     width: 75%;
     max-width: 900px;
     padding: 20px;

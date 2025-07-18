@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(document.querySelector('#matrix-table tbody'), { childList: true });
 
     // Initial check
-    setTimeout(checkDerivability, 100);
+    setTimeout(checkDerivability, 0);
 });
 
 // Future: Add pointer labels (SVG arrows from var names to equation terms)
