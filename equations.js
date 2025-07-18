@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.onclick = () => focusEquation(index);
         grid.appendChild(div);
     });
+    MathJax.typesetPromise();
 
     // Function to check derivability (from matrix data)
     function checkDerivability() {
@@ -169,10 +170,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // Helper function to strip LaTeX commands
+            function stripLatex(latex) {
+                // Replace \frac{a}{b} with (a)/(b)
+                let stripped = latex.replace(/\\frac{(.*?)}{(.*?)}/g, '($1)/($2)');
+                // Replace \sqrt{a} with sqrt(a)
+                stripped = stripped.replace(/\\sqrt{(.*?)}/g, 'sqrt($1)');
+                // Replace trig functions
+                stripped = stripped.replace(/\\(sin|cos|tan|arcsin|arccos|arctan)\\left\((.*?)\\right\)/g, '$1($2)');
+                // Remove all other LaTeX commands
+                stripped = stripped.replace(/\\[a-zA-Z]+/g, '');
+                // Remove braces
+                stripped = stripped.replace(/[{}]/g, '');
+                return stripped;
+            }
+
             // Perform calculation
             let result;
             try {
-                result = math.evaluate(calculationResult);
+                result = math.evaluate(stripLatex(calculationResult));
             } catch (error) {
                 result = "Error";
             }
@@ -188,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(document.querySelector('#matrix-table tbody'), { childList: true });
 
     // Initial check
-    checkDerivability();
+    setTimeout(checkDerivability, 100);
 });
 
 // Future: Add pointer labels (SVG arrows from var names to equation terms)
