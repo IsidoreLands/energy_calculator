@@ -148,6 +148,10 @@ p {
     border: 2px solid yellow;
 }
 
+.error-variable {
+    border: 2px solid red;
+}
+
 .equation-box .mathjax-wrapper, #focus-equation .mathjax-wrapper {
     font-size: 0.8em;
 }

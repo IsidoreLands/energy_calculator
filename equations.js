@@ -277,8 +277,21 @@ document.addEventListener('DOMContentLoaded', () => {
             let result;
             try {
                 result = math.evaluate(stripLatex(calculationResult));
+                // Clear any previous error highlighting
+                const matrixRows = document.querySelectorAll('#matrix-table tbody tr');
+                matrixRows.forEach(row => {
+                    row.classList.remove('error-variable');
+                });
             } catch (error) {
                 result = "Error";
+                // Highlight error-causing variables
+                const matrixRows = document.querySelectorAll('#matrix-table tbody tr');
+                matrixRows.forEach(row => {
+                    const varName = row.cells[0].textContent;
+                    if (required.includes(varName)) {
+                        row.classList.add('error-variable');
+                    }
+                });
             }
 
             createParticleAnimation(endRect.left + endRect.width/2, endRect.top + endRect.height/2, startRect.left + startRect.width/2, startRect.top + startRect.height/2, "");
