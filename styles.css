@@ -155,3 +155,34 @@ p {
 .equation-box .mathjax-wrapper, #focus-equation .mathjax-wrapper {
     font-size: 0.8em;
 }
+
+#page-container {
+    width: 100%;
+    height: 80vh;
+}
+
+#page-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+#page-number-input {
+    background-color: transparent;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    width: 50px;
+    text-align: center;
+}
+
+#pagination-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    #page-container {
+        height: calc(100vh - 150px);
+    }
+}
