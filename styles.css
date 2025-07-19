@@ -156,16 +156,17 @@ p {
     font-size: 0.8em;
 }
 
-#toggle-view {
+#toggle-view, #toggle-view-latex {
     background-color: transparent;
     color: #00FF41;
     border: 1px solid #00FF41;
-    padding: 10px 20px;
+    padding: 5px 10px;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-left: 20px;
+    font-size: 0.8em;
 }
 
-#toggle-view:hover {
+#toggle-view:hover, #toggle-view-latex:hover {
     background-color: rgba(0, 255, 65, 0.1);
 }
 
