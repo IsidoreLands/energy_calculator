@@ -6,6 +6,7 @@ const EM_EQUATIONS = [
         name: 'Turn Radius (r)',
         latex: 'r = \\frac{V^2}{g N_r}',
         requiredVars: ['V', 'g', 'N_r'],
+        solvable: ['r', 'N_r'],
         page: 'Page02',
         display: true
     },
@@ -13,6 +14,7 @@ const EM_EQUATIONS = [
         name: 'Turn Rate (ω)',
         latex: '\\omega = \\frac{g N_r}{V}',
         requiredVars: ['g', 'N_r', 'V'],
+        solvable: ['ω', 'N_r'],
         page: 'Page02',
         display: true
     },
@@ -263,7 +265,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to focus equation
     function focusEquation(index) {
         const eq = EM_EQUATIONS[index];
-        focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${eq.latex} \\]</p>`;
+        let html = `<h3>${eq.name} (Focused)</h3><p>\\[ ${eq.latex} \\]</p>`;
+        if (eq.solvable) {
+            html += `<label for="solve-for">Solve for:</label>
+            <select id="solve-for">
+                ${eq.solvable.map(v => `<option value="${v}">${v}</option>`).join('')}
+            </select>`;
+        }
+        focus.innerHTML = html;
         MathJax.typesetPromise(); // Re-render LaTeX
 
         const required = eq.requiredVars;
@@ -308,11 +317,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Perform calculation
-            const result = calculate(eq.name, varValues);
+            const solveForSelect = document.getElementById('solve-for');
+            const solveFor = solveForSelect ? solveForSelect.value : null;
+            const result = calculate(eq.name, varValues, solveFor);
 
             if (result !== null && result !== "Error") {
                 createParticleAnimation(endRect.left + endRect.width/2, endRect.top + endRect.height/2, startRect.left + startRect.width/2, startRect.top + startRect.height/2, "");
-                focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${calculationString} = ${result.toFixed(2)} \\]</p>`;
+                if (solveFor) {
+                    focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${solveFor} = ${result} \\]</p>`;
+                } else {
+                    focus.innerHTML = `<h3>${eq.name} (Focused)</h3><p>\\[ ${calculationString} = ${result.toFixed(2)} \\]</p>`;
+                }
                 MathJax.typesetPromise(); // Re-render LaTeX
             } else if (result === "Error") {
                 // Highlight error-causing variables
@@ -354,16 +369,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Future: Add pointer labels (SVG arrows from var names to equation terms)
 
-function calculate(equationName, values) {
+function calculate(equationName, values, solveFor) {
     const eq = EM_EQUATIONS.find(e => e.name === equationName);
     if (!eq) {
         return null;
     }
 
-    const missingVars = eq.requiredVars.filter(v => !(v in values));
-    if (missingVars.length > 0) {
-        return null;
+    if (solveFor) {
+        const missingVars = eq.requiredVars.filter(v => !(v in values) && v !== solveFor);
+        if (missingVars.length > 0) {
+            return null;
+        }
+    } else {
+        const missingVars = eq.requiredVars.filter(v => !(v in values));
+        if (missingVars.length > 0) {
+            return null;
+        }
     }
+
 
     let calculationResult = eq.latex;
     for (const key in values) {
@@ -390,7 +413,13 @@ function calculate(equationName, values) {
     }
 
     try {
-        return math.evaluate(stripLatex(calculationResult));
+        if (solveFor) {
+            const rearranged = math.parse(stripLatex(eq.latex)).toString();
+            const solution = math.solve(rearranged, solveFor);
+            return solution.toString();
+        } else {
+            return math.evaluate(stripLatex(calculationResult));
+        }
     } catch (error) {
         return "Error";
     }
