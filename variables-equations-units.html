@@ -1,10 +1,9 @@
 <div id="text-view">
-    <h1>Extracted Equations, Variables, and Units (v1.7)</h1>
+    <h1>Extracted Equations, Variables, and Units</h1>
 
     <p>Updated with corrections from review processes. Updates are based on the initial assessment (including dimensional consistency, standard aerospace notation, and OCR reconstructions), confirmed information from Bryson-Denham reference, from Rutowski context, and Heermann Reference. No new equations/variables added from first pass, only subsequent revisions. Page locations include. If you discover an error, please contact OODA WIKI.</p>
 
     <h2>Equations</h2>
-    <button id="toggle-view">Toggle LaTeX/Text</button>
     <p>Below is the updated comprehensive list of all unique equations extracted from the document, in order of appearance. Duplicates are removed, and OCR garbles (e.g., exponents, symbols) are reconstructed based on context, standard notation, and confirmations.</p>
 
     <p>r = V^2 / (g N_r)<br>
@@ -282,12 +281,11 @@
 </div>
 
 <div id="latex-view" style="display:none;">
-    <h1>Extracted Equations, Variables, and Units (v1.7)</h1>
+    <h1>Extracted Equations, Variables, and Units</h1>
 
     <p>Updated with corrections from review processes. Updates are based on the initial assessment (including dimensional consistency, standard aerospace notation, and OCR reconstructions), confirmed information from Bryson-Denham reference, from Rutowski context, and Heermann Reference. No new equations/variables added from first pass, only subsequent revisions. Page locations include. If you discover an error, please contact OODA WIKI.</p>
 
     <h2>Equations</h2>
-    <button id="toggle-view-latex">Toggle LaTeX/Text</button>
     <p>Below is the updated comprehensive list of all unique equations extracted from the document, in order of appearance. Duplicates are removed, and OCR garbles (e.g., exponents, symbols) are reconstructed based on context, standard notation, and confirmations.</p>
 
     <p>$$r = \frac{V^2}{g N_r}$$<br>
@@ -580,7 +578,4 @@
             window.MathJax.typeset();
         }
     }
-
-    document.getElementById('toggle-view').addEventListener('click', toggleViews);
-    document.getElementById('toggle-view-latex').addEventListener('click', toggleViews);
 </script>
