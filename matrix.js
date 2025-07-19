@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${name}</td>
                 <td>${amount}</td>
-                <td class="${convertedAmount !== null ? 'converted-unit' : ''}">${unit}</td>
+                <td class="${convertedAmount !== null && varUnitInput.value.trim() !== unit ? 'converted-unit' : ''}">${unit}</td>
                 <td>
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
