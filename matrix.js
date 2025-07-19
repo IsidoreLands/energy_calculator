@@ -1,5 +1,31 @@
 // matrix.js - Handles data entry inputs and populates matrix table
+
 import { EM_EQUATIONS } from './equations.js';
+
+export function handleEquationSelection(equationKey) {
+    const equation = EQUATIONS[equationKey];
+    if (!equation) return;
+
+    const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
+
+    equation.inputs.forEach(inputVar => {
+        if (!varExists(inputVar)) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${inputVar}</td>
+                <td></td>
+                <td>${UNIT_AUTOCOMPLETE[inputVar] || ''}</td>
+                <td>
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </td>
+            `;
+            matrixTable.appendChild(row);
+            addRowListeners(row);
+        }
+    });
+}
+
 
 // Preload EM variables from memo appendix (as array for now; later from JSON)
 // Uppercase for consistency
@@ -253,8 +279,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const varUnitInput = document.getElementById('var-unit');
     const addButton = document.getElementById('add-var');
     const refreshButton = document.getElementById('refresh-matrix');
+    const clearButton = document.getElementById('clear-matrix');
     const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
     const aircraftSearch = document.getElementById('aircraft-search');
+
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            matrixTable.innerHTML = `
+                <tr>
+                    <td>g</td>
+                    <td>32.174</td>
+                    <td>ft/sec²</td>
+                    <td></td>
+                </tr>
+            `;
+        });
+    }
 
     varNameInput.addEventListener('input', () => {
         const normalizedVar = normalizeVarName(varNameInput.value);
