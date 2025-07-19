@@ -27,10 +27,6 @@
         .equation-box:hover {
             border-color: #00FF41;
         }
-        .selected-equation {
-            border-color: #00FF41;
-            background-color: #003300;
-        }
         #focus-equation {
             margin-top: 20px;
             padding: 20px;
@@ -61,19 +57,11 @@
         <section id="matrix">
             <h2>Matrix</h2>
             <button id="refresh-matrix">Refresh Matrix</button>
-            <button id="clear-matrix">Clear Matrix</button>
             <table id="matrix-table" border="1" style="width:100%; border-color:#00FF00;">
                 <thead>
                     <tr><th>Name</th><th>Amount</th><th>Unit</th><th>Actions</th></tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>g</td>
-                        <td>32.174</td>
-                        <td>ft/sec²</td>
-                        <td></td>
-                    </tr>
-                </tbody>
+                <tbody></tbody>
             </table>
         </section>
         
@@ -108,36 +96,15 @@
     <!-- Link to units.js -->
     <script src="units.js"></script>
     <!-- Link to matrix.js -->
-    <script type="module" src="matrix.js"></script>
+    <script src="matrix.js"></script>
     <!-- Link to equations.js -->
-    <script type="module" src="equations.js"></script>
+    <script src="equations.js"></script>
     <!-- Three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Math.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
     <!-- Link to particles.js -->
     <script src="particles.js"></script>
-    <script type="module">
-        import { EQUATIONS } from './equations.js';
-        import { handleEquationSelection } from './matrix.js';
-
-        const equationGrid = document.getElementById('equation-grid');
-        const focusEquationDiv = document.getElementById('focus-equation');
-
-        Object.keys(EQUATIONS).forEach(key => {
-            const eq = EQUATIONS[key];
-            const box = document.createElement('div');
-            box.className = 'equation-box';
-            box.textContent = key;
-            box.addEventListener('click', () => {
-                document.querySelectorAll('.equation-box').forEach(b => b.classList.remove('selected-equation'));
-                box.classList.add('selected-equation');
-                handleEquationSelection(key);
-                focusEquationDiv.textContent = `Selected: ${key} = f(${eq.inputs.join(', ')})`;
-            });
-            equationGrid.appendChild(box);
-        });
-    </script>
     <script>
         // Function to fetch and insert content
         function includeHTML() {
