@@ -298,4 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Searching for aircraft: ' + e.target.value);
         // Future: Filter and auto-populate inputs/matrix
     });
+
+    document.addEventListener('change', (e) => {
+        if (e.target.id === 'solve-for') {
+            updateCalculations();
+        }
+    });
 });
