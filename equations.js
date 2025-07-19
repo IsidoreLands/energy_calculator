@@ -1,7 +1,7 @@
 // equations.js - Handles equations grid, derivability checks, and focus
 
 // Define EM equations with LaTeX and required vars
-const EM_EQUATIONS = [
+export const EM_EQUATIONS = [
     {
         name: 'Turn Radius (r)',
         latex: 'r = \\frac{V^2}{g N_r}',

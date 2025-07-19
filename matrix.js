@@ -1,11 +1,50 @@
 // matrix.js - Handles data entry inputs and populates matrix table
-import { EQUATIONS } from './equations.js';
+import { EM_EQUATIONS } from './equations.js';
 
 // Preload EM variables from memo appendix (as array for now; later from JSON)
 // Uppercase for consistency
 const EM_VARIABLES = [
     'a', 'C_{D_0}', 'C_L', 'C_{L_max}', 'ΔC_L', 'D', 'dE_s/dt', 'dh/dt', 'dt', 'dV/dt', 'dρ', 'dw_f', 'dγ/dt', 'δu(t)', 'δx(t)', 'δΩ', 'δψ', 'E', 'E_k', 'E_p', 'E_s', 'E-M', 'F(t)', 'f_c', 'G(t)', 'g', 'h', 'Δh', 'I_{ψψ}', 'I_{ψΩ}', 'I_{ΩΩ}', 'k', 'λ', 'm', 'M', 'n', 'n_L', 'N_r', 'Ω', 'P_s', 'P_s^*', 'ψ', 'q', 'q̄', 'r', 'R', 'S', 't', 'T', 'T_a', 'T̄_a', 'V', '\dot{V}', 'V̄', 'V_ts', 'W', 'W̄', 'W_f', 'ẇ_f', 'ẇ_f_avg', 'x', 'Δx', 'γ', 'γ̄', 'ρ', 'ω'
 ];
+
+const EQUATIONS = {};
+EM_EQUATIONS.forEach(eq => {
+    const name = eq.name.match(/\(([^)]+)\)/)[1];
+    EQUATIONS[name] = {
+        inputs: eq.requiredVars,
+        calculate: () => {
+            // This is a placeholder. The actual calculation logic will be added later.
+const values = {};
+this.inputs.forEach(input => {
+    const row = Array.from(document.querySelectorAll('#matrix-table tbody tr')).find(row => row.cells[0].textContent === input);
+    if (row) {
+        values[input] = parseFloat(row.cells[1].textContent);
+    }
+});
+
+switch (name) {
+    case 'r':
+        return (values.V * values.V) / (values.g * values.N_r);
+    case 'ω':
+        return (values.g * values.N_r) / values.V;
+    case 'E':
+        return values.W * (values.h + (values.V * values.V) / (2 * values.g));
+    case 'E_s':
+        return values.h + (values.V * values.V) / (2 * values.g);
+    case 'P_s':
+        return ((values.T - values.D) * values.V) / values.W;
+    case 'q':
+        return 0.5 * values.ρ * values.V * values.V;
+    case 'n_L':
+        return (values.q * values.S * values.C_L_max) / values.W;
+    case 'm':
+        return values.W / values.g;
+    default:
+        return 0;
+}
+        }
+    };
+});
 
 // Expanded mapping for longforms and case-insensitivity (keys lowercase)
 const UNIT_AUTOCOMPLETE = {
@@ -289,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
             varAmountInput.value = '';
             varUnitInput.value = '';
             // Future: Trigger derivations/checks
+            updateCalculations();
         } else {
             alert('Invalid/missing fields or duplicate variable.');
         }
