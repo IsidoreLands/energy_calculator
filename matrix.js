@@ -1,4 +1,29 @@
 // matrix.js - Handles data entry inputs and populates matrix table
+import { EQUATIONS } from './equations.js';
+
+export function handleEquationSelection(equationKey) {
+    const equation = EQUATIONS[equationKey];
+    if (!equation) return;
+
+    const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
+
+    equation.inputs.forEach(inputVar => {
+        if (!varExists(inputVar)) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${inputVar}</td>
+                <td></td>
+                <td>${UNIT_AUTOCOMPLETE[inputVar] || ''}</td>
+                <td>
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </td>
+            `;
+            matrixTable.appendChild(row);
+            addRowListeners(row);
+        }
+    });
+}
 
 // Preload EM variables from memo appendix (as array for now; later from JSON)
 // Uppercase for consistency
@@ -33,7 +58,7 @@ const UNIT_AUTOCOMPLETE = {
     'F(t)': 'varies',
     'f_c': 'lb',
     'G(t)': 'varies',
-    'g': 'g',
+    'g': 'ft/sec²',
     'h': 'ft',
     'Δh': 'ft',
     'I_{ψψ}': 'varies',
@@ -213,8 +238,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const varUnitInput = document.getElementById('var-unit');
     const addButton = document.getElementById('add-var');
     const refreshButton = document.getElementById('refresh-matrix');
+    const clearButton = document.getElementById('clear-matrix');
     const matrixTable = document.getElementById('matrix-table').querySelector('tbody');
     const aircraftSearch = document.getElementById('aircraft-search');
+
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            matrixTable.innerHTML = `
+                <tr>
+                    <td>g</td>
+                    <td>32.174</td>
+                    <td>ft/sec²</td>
+                    <td></td>
+                </tr>
+            `;
+        });
+    }
 
     varNameInput.addEventListener('input', () => {
         const normalizedVar = normalizeVarName(varNameInput.value);
@@ -246,6 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = normalizeVarName(rawName);
         let amount = varAmountInput.value.trim();
         let unit = varUnitInput.value.trim();
+
+        if (EQUATIONS[name]) {
+            alert('This variable is calculated automatically.');
+            return;
+        }
+
         if (name && amount && unit && EM_VARIABLES.includes(name) && !varExists(name)) {
             const targetUnit = UNIT_AUTOCOMPLETE[name];
             const convertedAmount = convertUnit(amount, unit, targetUnit);
@@ -276,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             matrixTable.appendChild(row);
             addRowListeners(row); // Add edit/delete listeners
+            updateCalculations();
             // Clear inputs
             varNameInput.value = '';
             varAmountInput.value = '';
@@ -285,6 +331,49 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Invalid/missing fields or duplicate variable.');
         }
     });
+
+    function updateCalculations() {
+        const matrixData = getMatrixData();
+        Object.keys(EQUATIONS).forEach(variable => {
+            const equation = EQUATIONS[variable];
+            const inputValues = equation.inputs.map(input => matrixData[input]);
+            if (inputValues.every(val => val !== undefined)) {
+                const result = equation.calculate(...inputValues);
+                updateOrAddRow(variable, result, UNIT_AUTOCOMPLETE[variable]);
+            }
+        });
+    }
+
+    function getMatrixData() {
+        const data = {};
+        const rows = matrixTable.rows;
+        for (let row of rows) {
+            const name = row.cells[0].textContent;
+            const value = parseFloat(row.cells[1].textContent);
+            data[name] = value;
+        }
+        return data;
+    }
+
+    function updateOrAddRow(name, amount, unit) {
+        const rows = matrixTable.rows;
+        for (let row of rows) {
+            if (row.cells[0].textContent === name) {
+                row.cells[1].textContent = amount.toFixed(2);
+                row.cells[2].textContent = unit;
+                return;
+            }
+        }
+        // If the row doesn't exist, add it
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${amount.toFixed(2)}</td>
+            <td>${unit}</td>
+            <td></td>
+        `;
+        matrixTable.appendChild(row);
+    }
 
     // Refresh matrix
     refreshButton.addEventListener('click', () => {
@@ -297,4 +386,23 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Searching for aircraft: ' + e.target.value);
         // Future: Filter and auto-populate inputs/matrix
     });
+
+    function addRowListeners(row) {
+        const editBtn = row.querySelector('.edit-btn');
+        const deleteBtn = row.querySelector('.delete-btn');
+
+        if (editBtn) {
+            editBtn.addEventListener('click', () => {
+                // For simplicity, we'll just log to the console.
+                console.log('Editing row...');
+            });
+        }
+
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+                row.remove();
+                updateCalculations();
+            });
+        }
+    }
 });
