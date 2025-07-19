@@ -1,0 +1,137 @@
+<section id="variables-equations-units">
+    <h1>Extracted Equations, Variables, and Units from "EM Theory.pdf" (v1.7)</h1>
+    <p>This markdown (v1.7) incorporates the original extracted lists provided by the user, updated with corrections from the review process. Updates are based on the initial assessment (including dimensional consistency, standard aerospace notation, and OCR reconstructions), confirmed information from PAGE13 (N_r subscript and ω symbol), PAGE52 (\\dot{V} in force balance), PAGE21-22/55 ("E-M" efficiency), PAGE66 (subscripts from Bryson-Denham reference), PAGE82-83 ("\\dot{V}/g" from Rutowski context), and now the Heermann paper (Reference 3): Confirms minimum time paths via Huygens' wave fronts/envelopes, aligning with Rutowski conditions (e.g., eqs. 13-14) and overall E-M framework. No new equations/variables added, as they are derivations already covered. No changes to lists.</p>
+
+    <h2>Equations</h2>
+    <p>Below is the updated comprehensive list of all unique equations extracted from the document, in order of appearance. Duplicates are removed, and OCR garbles (e.g., exponents, symbols) are reconstructed based on context, standard notation, and confirmations.</p>
+
+    <ol>
+        <li><strong>r = V^2 / (g N_r)</strong><br>(Instantaneous maneuverability radius; PAGE13)<br><em>(Confirmed on PAGE13: Subscript is "r" for radial g.)</em></li>
+        <li><strong>ω = g N_r / V</strong><br>(Instantaneous maneuverability rate; PAGE13)<br><em>(Confirmed on PAGE13: Turn rate is Greek omega "ω", not "u".)</em></li>
+        <li><strong>E = W h + (1/2) m V^2</strong><br>(Total energy; derived from E = E_p + E_k, where E_p = W h and E_k = (1/2) m V^2; PAGE15, Appendix II PAGE51)</li>
+        <li><strong>E = W (h + V^2 / (2g))</strong><br>(Total energy in terms of weight; PAGE15, Appendix II PAGE51)</li>
+        <li><strong>E_s = h + V^2 / (2g)</strong><br>(Specific energy; PAGE15, Appendix II PAGE51)</li>
+        <li><strong>dE_s / dt = P_s</strong><br>(Energy rate; PAGE15)</li>
+        <li><strong>P_s = (T - D) V / W</strong><br>(Specific excess power; PAGE15, Appendix II PAGE52)</li>
+        <li><strong>(W/g) \\dot{V} = T_a - D - W sin γ</strong><br>(Force balance along flight path; Appendix II PAGE52)<br><em>(Update from PAGE52 confirmation: OCR garble resolved with (W/g) for mass-equivalent and \\dot{V} for dV/dt.)</em></li>
+        <li><strong>T_a - D = W sin γ + (W/g) \\dot{V}</strong><br>(Rearranged force balance; Appendix II PAGE52)<br><em>(Updated to use \\dot{V}.)</em></li>
+        <li><strong>(T_a - D)/W = sin γ + (\\dot{V}/g)</strong><br>(Normalized force balance; Appendix II PAGE52)<br><em>(Updated to use \\dot{V}.)</em></li>
+        <li><strong>((T_a - D)/W) V = V sin γ + (V \\dot{V})/g</strong><br>(Multiplied by V; Appendix II PAGE52)<br><em>(Updated to use \\dot{V}.)</em></li>
+        <li><strong>dh/dt + (V \\dot{V})/g = ((T_a - D)/W) V</strong><br>(Since dh/dt = V sin γ; Appendix II PAGE52)<br><em>(Updated to use \\dot{V}.)</em></li>
+        <li><strong>(∂P_s / ∂V)_{E_s = k} = 0</strong><br>(Rutkowski condition for minimum time path; Appendix II PAGE54)<br><em>(Confirmed via Rutowski/Heermann papers: Maximize d(E_s)/dt at constant E_s.)</em></li>
+        <li><strong>(∂P_s / ∂h)_{E_s = k} = 0</strong><br>(Alternative Rutkowski condition for minimum time path; Appendix II PAGE54)<br><em>(Confirmed via Rutowski/Heermann papers.)</em></li>
+        <li><strong>ΔE_s = ∫ (dE_s / dt) dt</strong><br>(Integral for energy change; Appendix II PAGE54; truncated in text)<br><em>(Suggestion: Added Δ for change, as absolute E_s isn't an integral.)</em></li>
+        <li><strong>dE_s / dw_f = -P_s / ẇ_f</strong><br>(Energy per fuel weight; Appendix II PAGE54)<br><em>(Confirmed via Rutowski: d(E_s)/dW_f = -P_s / \dot{w}_f, sign for consumption.)</em></li>
+        <li><strong>ΔE_s = -∫ (P_s / ẇ_f) dw_f</strong><br>(Integral for minimum fuel; Appendix II PAGE54)<br><em>(Suggestion: Added Δ for consistency; confirmed via Rutowski.)</em></li>
+        <li><strong>(∂(P_s / ẇ_f) / ∂V)_{E_s = k} = 0</strong><br>(Rutkowski condition for minimum fuel path; Appendix II PAGE54)<br><em>(Confirmed via Rutowski paper: Maximize d(E_s)/dW_f at constant E_s.)</em></li>
+        <li><strong>(∂(P_s / ẇ_f) / ∂h)_{E_s = k} = 0</strong><br>(Alternative Rutkowski condition for minimum fuel path; Appendix II PAGE54)<br><em>(Confirmed via Rutowski paper.)</em></li>
+        <li><strong>E-M = (P_s^* / ẇ_f) W_f</strong><br>(Energy-maneuverability efficiency; PAGE22, Appendix II PAGE55)<br><em>(Update from better scan: "E-M" confirmed.)</em></li>
+        <li><strong>R = (V_ts / ẇ_f_avg) W_f + x</strong><br>(Range equation; PAGE24, Appendix II PAGE56)</li>
+        <li><strong>n_L = (q S C_{L_max}) / W</strong><br>(Maximum load factor; Appendix II PAGE51)</li>
+        <li><strong>q = (1/2) ρ V^2</strong><br>(Dynamic pressure; Appendix II PAGE51)</li>
+        <li><strong>E-M = P_s^* W_f / ẇ_f</strong><br>(Alternative form of efficiency; PAGE22)<br><em>(Update from better scan: "E-M" confirmed.)</em></li>
+        <li><strong>E-M = (P_s^* / ẇ_f) W_f</strong><br>(OCR variant; PAGE22; likely typo for E-M)<br><em>(Update from better scan: "E-M" confirmed; fixed denominator for units.)</em></li>
+        <li><strong>d(δx)/dt = F(t) δx + G(t) δu</strong><br>(Linear differential equation for perturbations; Appendix II PAGE63)</li>
+        <li><strong>dλ/dt = -F'(t) λ(t)</strong><br>(Adjoint differential equations; Appendix II PAGE65)</li>
+        <li><strong>(dρ)^2 = ∫ δu'(t) W(t) δu(t) dt</strong><br>(Integral constraint for perturbations; Appendix II PAGE66)</li>
+        <li><strong>δu(t) = [W^{-1} G' λ_{ψΩ}] / (dρ) ± [W^{-1} G' λ_{ψΩ} - (I_{ψΩ} / I_{ΩΩ}) W^{-1} G' λ_{ψΩ}] * [√(I_{ψψ} δψ - I_{ψΩ} δΩ) / √(I_{ψψ} I_{ΩΩ} - (I_{ψΩ})^2)]</strong><br>(Perturbation in control variables; Appendix II PAGE66; complex matrix form)<br><em>(Update from Bryson-Denham: Confirmed subscripts; "I_{ψψ} / I_{ψψ}" was OCR error for "I_{ψΩ} / I_{ΩΩ}".)</em></li>
+        <li><strong>n = (\\dot{V} / g) + cos γ</strong><br>(Normal acceleration; Appendix II PAGE83)<br><em>(Updated to use \\dot{V}.)</em></li>
+        <li><strong>sin γ̄ = (h_i - h_{i-1}) / (V̄ Δt)</strong><br>(Approximate pitch angle; Appendix II PAGE83)</li>
+        <li><strong>sin γ_i = 2 Δh / (V̄ Δt)</strong><br>(Estimate for sin γ_i; Appendix II PAGE83)</li>
+        <li><strong>γ̇ = (γ_i - γ_{i-1}) / Δt</strong><br>(Angular rate; Appendix II PAGE83)</li>
+        <li><strong>C̄_L = ΔC_L + √[ (T̄_a - W̄ (sin γ̄ + \\dot{V}/g)) / (q̄ S) - (C_{D_0} + k (ΔC_L)^2) ] / √k</strong><br>(Coefficient of lift; Appendix II PAGE82)<br><em>(Update from PAGE82-83 and Rutowski context: Garble "\\psi / \\psi" confirmed as "\\dot{V}/g".)</em></li>
+    </ol>
+
+    <h2>Variables</h2>
+    <p>Below is the updated list of all unique variables, alphabetized, with descriptions (inferred from context) and units (if stated). Additions/clarifications from review included (e.g., averaged variables). No changes.</p>
+
+    <ul>
+        <li><strong>a</strong>: Acceleration along flight path (ft/sec²). <em>(Note: Superseded by \\dot{V} in some contexts, but retained for generality.)</em></li>
+        <li><strong>C_{D_0}</strong>: Zero-lift drag coefficient (dimensionless).</li>
+        <li><strong>C_L</strong>: Coefficient of lift (dimensionless).</li>
+        <li><strong>C_{L_max}</strong>: Maximum coefficient of lift (dimensionless).</li>
+        <li><strong>ΔC_L</strong>: Value of C_L for minimum C_D (dimensionless).</li>
+        <li><strong>D</strong>: Drag force (lb).</li>
+        <li><strong>dE_s/dt</strong>: Energy rate (ft/sec; also P_s).</li>
+        <li><strong>dh/dt</strong>: Altitude rate (ft/sec).</li>
+        <li><strong>dt</strong>: Time increment (sec).</li>
+        <li><strong>dV/dt</strong>: Velocity rate (ft/sec²). <em>(See also \\dot{V}.)</em></li>
+        <li><strong>dρ</strong>: Perturbation size (dimensionless in context).</li>
+        <li><strong>dw_f</strong>: Differential fuel weight (lb).</li>
+        <li><strong>dγ/dt (γ̇)</strong>: Pitch angle rate (rad/sec).</li>
+        <li><strong>δu(t)</strong>: Perturbation in control variables (matrix; varies by component).</li>
+        <li><strong>δx(t)</strong>: Perturbation in state variables (matrix; varies by component).</li>
+        <li><strong>δΩ</strong>: Change in stopping condition (varies).</li>
+        <li><strong>δψ</strong>: Change in pay-off function (varies, e.g., time or weight).</li>
+        <li><strong>E</strong>: Total energy (ft-lb).</li>
+        <li><strong>E_k</strong>: Kinetic energy (ft-lb).</li>
+        <li><strong>E_p</strong>: Potential energy (ft-lb).</li>
+        <li><strong>E_s</strong>: Specific energy (ft).</li>
+        <li><strong>E-M</strong>: Energy-maneuverability efficiency (ft; PAGE22). <em>(Update from better scan: Confirmed as "E-M".)</em></li>
+        <li><strong>F(t)</strong>: Jacobian matrix of state derivatives (matrix; dimensionless/various).</li>
+        <li><strong>f_c</strong>: Fuel consumed (lb).</li>
+        <li><strong>G(t)</strong>: Jacobian matrix of control influences (matrix; dimensionless/various).</li>
+        <li><strong>g</strong>: Gravitational acceleration (32.174 ft/sec²; often 32.2 ft/sec²).</li>
+        <li><strong>h</strong>: Altitude (ft).</li>
+        <li><strong>Δh</strong>: Altitude change (ft).</li>
+        <li><strong>I_{ψψ}, I_{ψΩ}, I_{ΩΩ}</strong>: Influence integrals (matrix scalars; sec² or lb² depending on context). <em>(Update from Bryson-Denham: Confirmed subscripts.)</em></li>
+        <li><strong>k</strong>: Induced drag parameter (dimensionless).</li>
+        <li><strong>λ (various subscripts like λ_h, λ_v, etc.)</strong>: Lagrange multipliers/influence functions (dimensionless or varies).</li>
+        <li><strong>m</strong>: Aircraft mass (slugs).</li>
+        <li><strong>M</strong>: Mach number (dimensionless).</li>
+        <li><strong>n</strong>: Normal acceleration/load factor (g's; dimensionless).</li>
+        <li><strong>n_L</strong>: Maximum load factor (dimensionless).</li>
+        <li><strong>N_r</strong>: Radial g (dimensionless). <em>(Confirmed on PAGE13: Subscript "r" for radial.)</em></li>
+        <li><strong>Ω</strong>: Stopping condition (varies, e.g., V - V_2 = 0).</li>
+        <li><strong>P_s</strong>: Specific excess power (ft/sec).</li>
+        <li><strong>P_s^*</strong>: Average specific excess power (ft/sec). <em>(Clarification: Peak or reference value.)</em></li>
+        <li><strong>ψ</strong>: Pay-off function (e.g., -t for time or -W for fuel; sec or lb).</li>
+        <li><strong>q</strong>: Dynamic pressure (lb/ft²).</li>
+        <li><strong>q̄</strong>: Average dynamic pressure (lb/ft²).</li>
+        <li><strong>r</strong>: Turn radius (ft).</li>
+        <li><strong>R</strong>: Range (nautical miles or ft; PAGE24).</li>
+        <li><strong>S</strong>: Wing reference area (ft²).</li>
+        <li><strong>t</strong>: Time (sec).</li>
+        <li><strong>T (or T_a)</strong>: Thrust available (lb).</li>
+        <li><strong>T̄_a</strong>: Average thrust available (lb).</li>
+        <li><strong>V</strong>: True airspeed (ft/sec; sometimes knots or CAS in context).</li>
+        <li><strong>\\dot{V}</strong>: Acceleration along path (ft/sec²). <em>(Confirmed on PAGE52: V with dot for dV/dt.)</em></li>
+        <li><strong>V̄</strong>: Average true airspeed (ft/sec).</li>
+        <li><strong>V_ts</strong>: True airspeed for cruise (ft/sec).</li>
+        <li><strong>W</strong>: Aircraft weight (lb).</li>
+        <li><strong>W̄</strong>: Average aircraft weight (lb).</li>
+        <li><strong>W_f</strong>: Fuel weight available (lb).</li>
+        <li><strong>ẇ_f</strong>: Fuel flow rate (lb/sec).</li>
+        <li><strong>ẇ_f_avg</strong>: Average fuel flow (lb/sec).</li>
+        <li><strong>x</strong>: Horizontal distance traversed (nautical miles or ft).</li>
+        <li><strong>Δx</strong>: Distance increment (ft or nautical miles).</li>
+        <li><strong>γ</strong>: Pitch angle (rad or degrees).</li>
+        <li><strong>γ̄</strong>: Average pitch angle (rad).</li>
+        <li><strong>ρ</strong>: Air density (slugs/ft³).</li>
+        <li><strong>ω</strong>: Turn rate (rad/sec or deg/sec). <em>(Confirmed on PAGE13: Greek omega "ω".)</em></li>
+    </ul>
+
+    <h2>Units of Measure</h2>
+    <p>The document uses Imperial units primarily, with some dimensionless quantities. Below is the updated list of all unique units mentioned or implied. No changes.</p>
+
+    <ul>
+        <li><strong>deg</strong>: Degrees (for angles).</li>
+        <li><strong>dimensionless</strong>: For ratios like Mach number, load factors (g's), coefficients (C_L, etc.).</li>
+        <li><strong>ft</strong>: Feet (altitude, radius, energy units like ft-lb or specific energy in ft).</li>
+        <li><strong>ft/sec</strong>: Feet per second (airspeed, excess power).</li>
+        <li><strong>ft/sec²</strong>: Feet per second squared (acceleration).</li>
+        <li><strong>ft-lb</strong>: Foot-pounds (energy).</li>
+        <li><strong>ft/deg</strong>: Feet per degree (in missile envelopes; PAGE46).</li>
+        <li><strong>g</strong>: Gravitational units (load factor; dimensionless but "g's").</li>
+        <li><strong>knots</strong>: Knots (airspeed in some contexts, e.g., CAS; implied).</li>
+        <li><strong>lb</strong>: Pounds (weight, thrust, drag, fuel).</li>
+        <li><strong>lb/ft²</strong>: Pounds per square foot (dynamic pressure).</li>
+        <li><strong>lb/sec</strong>: Pounds per second (fuel flow).</li>
+        <li><strong>nautical miles (implied as "miles")</strong>: For range (e.g., 64.4 nautical miles).</li>
+        <li><strong>rad</strong>: Radians (pitch angle).</li>
+        <li><strong>rad/sec</strong>: Radians per second (rates).</li>
+        <li><strong>sec</strong>: Seconds (time).</li>
+        <li><strong>slugs</strong>: Slugs (mass).</li>
+        <li><strong>slugs/ft³</strong>: Slugs per cubic foot (density).</li>
+    </ul>
+</section>
