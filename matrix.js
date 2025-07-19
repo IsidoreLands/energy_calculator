@@ -258,10 +258,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
             row.dataset.originalAmount = varAmountInput.value.trim();
             row.dataset.originalUnit = varUnitInput.value.trim();
+
+            const fromUnit = varUnitInput.value.trim();
+            const toUnit = UNIT_AUTOCOMPLETE[name];
+            const fromCategory = findCategory(fromUnit);
+            const toCategory = findCategory(toUnit);
+            const converted = fromCategory && toCategory && fromCategory === toCategory && fromUnit !== toUnit;
+
             row.innerHTML = `
                 <td>${name}</td>
                 <td>${amount}</td>
-                <td class="${convertedAmount !== null && varUnitInput.value.trim() !== unit ? 'converted-unit' : ''}">${unit}</td>
+                <td class="${converted ? 'converted-unit' : ''}">${unit}</td>
                 <td>
                     <button class="edit-btn">Edit</button>
                     <button class="delete-btn">Delete</button>
