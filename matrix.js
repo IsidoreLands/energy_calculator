@@ -1,5 +1,4 @@
 // matrix.js - Handles data entry inputs and populates matrix table
-import { EQUATIONS } from './equations.js';
 
 export function handleEquationSelection(equationKey) {
     const equation = EQUATIONS[equationKey];
